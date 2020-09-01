@@ -1,6 +1,6 @@
 
 const arrayToDo = JSON.parse(localStorage.getItem('storage'))  || [];
-
+// const arrayToDo = [];
 const render = () => {
    
     const list = document.getElementById('toDoList');
@@ -19,7 +19,7 @@ const render = () => {
     })
 }
 
-//Para guardar elementos en el 'localStorage'
+// Para guardar elementos en el 'localStorage'
 const actualizaToDos = (arrayToDo) => {
 const arrayToDoString = JSON.stringify(arrayToDo);
 localStorage.setItem('storage', arrayToDoString);
@@ -44,6 +44,8 @@ window.onload = () => {
     }
 }
     
+
+
 
     
     
