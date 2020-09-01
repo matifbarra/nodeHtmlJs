@@ -1,0 +1,27 @@
+body{
+    background-color: #eeeeee;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+.grid{
+    display: grid;
+    /* grid-template-rows: [row1-inicio] 50px [row2-Inicio] 50px [row3-end]; */
+    grid-template-rows: repeat(2,[row-inicio] 50px [row-end]);
+    /* grid-template-columns: [col1-prueba] 1fr [col2-prueba] 1fr [col3-prueba] 1fr [col4-end]; */
+    grid-template-columns: repeat(3,[col-inicio] 1fr [col-end]);
+    grid-gap:15px ;
+}
+
+.element{
+    background-color: red;
+    border: 1px solid black;
+}
+
+.header{
+    grid-column: col-inicio / col-end 3;
+    grid-row: row-inicio / row-end 3;
+}
+
+
+

@@ -1,0 +1,32 @@
+
+
+.flex{
+    background-color: aqua;
+    height: 200px;
+    display: flex;
+    flex-flow: column wrap;
+    
+}
+
+.primero{
+    background-color: yellowgreen;
+    flex-grow: 1;
+   
+
+}
+.segundo{
+    background-color: brown;
+    flex-grow: 1;
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+

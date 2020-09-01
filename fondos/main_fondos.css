@@ -1,0 +1,17 @@
+body{
+    background-color: #eeeeee;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+.fondo{
+    
+    height: 400px;
+    /* background-color: blueviolet;
+    background-image: url('https://placekitten.com/200/300');
+    background-repeat: no-repeat;
+    background-attachment: fixed; */
+
+    background: blueviolet url('https://placekitten.com/200/300') no-repeat left top fixed;
+    background-size: cover;
+}

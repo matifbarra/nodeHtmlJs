@@ -1,0 +1,13 @@
+body{
+    background-color: #eeeeee;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+.dropdown-btn{
+    width: 300px;
+    background-color: aqua;
+}
+.dropdown-content a{
+    display: block;
+}
