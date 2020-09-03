@@ -1,0 +1,55 @@
+.body{
+    background-color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#squaresForm{
+    padding: 30px;
+}
+
+#squaresText{
+    /* padding: 20px; */
+    width: 200px;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: 20px;
+    border-radius: 2px;
+    border: none;
+    background-color: #D9D209;
+    padding: 20px;
+}
+#btn{
+    height: 140px;
+    border: none;
+    background-color: #1E9BD9;
+    color: white;
+    padding: 20px;
+    border-radius: 2px;
+    
+}
+#squaresBox{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+    overflow: hidden;
+    /* border: 1px solid black; */
+    margin-top: 20px;
+}
+.squares{
+    width: 200px;
+    border-radius: 5px;
+    min-height: 100px;
+    background-color: #C8F046;
+    /* border: 1px solid red; */
+    margin-left: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.tittleU{
+    font-size: 20px;
+    text-align: center;
+
+    
+}
+
