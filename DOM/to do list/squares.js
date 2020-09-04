@@ -1,12 +1,10 @@
-const arrayT = [];
+const arrayT = JSON.parse(localStorage.getItem('storage2'))  || [];
 const arrayS = JSON.parse(localStorage.getItem('storage'))  || [];
-
-
 
  
     const render = () =>{
     
-        let h;
+       
         const box = document.getElementById('squaresBox');
         const squaresMap = arrayS.map(t =>
         '<div class="squares">' + '<h2 class="tittles">' 
@@ -14,18 +12,18 @@ const arrayS = JSON.parse(localStorage.getItem('storage'))  || [];
         + t + '</div>');
         console.log(arrayT);
         box.innerHTML = squaresMap.join('');
+        
+
         const elemento = document.querySelectorAll('#squaresBox div');
-
-
-    elemento.forEach((elemento,i)=>{
-        console.log('i: ' + i);
-        elemento.addEventListener('click',() =>{
-        elemento.parentNode.removeChild(elemento);
-        arrayS.splice(i,1); // Eliminando datos del arreglo con Array.splice
-        arrayT.splice(i,1);
-        upDate(arrayS); //Actualizando en 'localStorage'
-        render();
-        console.log(arrayS, 'i: ' + i);    
+        elemento.forEach((elemento,i)=>{
+            console.log('i: ' + i);
+            elemento.addEventListener('click',() =>{
+            elemento.parentNode.removeChild(elemento);
+            arrayS.splice(i,1); // Eliminando datos del arreglo con Array.splice
+            arrayT.splice(i,1);
+            upDate(arrayS); //Actualizando en 'localStorage'
+            render();
+            console.log(arrayS, 'i: ' + i);    
         })
     });
     
@@ -47,7 +45,6 @@ window.onload = () => {
     render();
     const form = document.getElementById('squaresForm');
     form.onsubmit = (e) => {
-        e.preventDefault();
         const squaresTittle = document.getElementById('squaresTittle');
         const texto = squaresTittle.value;
         const squaresText = document.getElementById('squaresText');
