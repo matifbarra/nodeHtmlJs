@@ -7,14 +7,14 @@ const arrayS = JSON.parse(localStorage.getItem('storage'))  || [];
        
         const box = document.getElementById('squaresBox');
         const squaresMap = arrayS.map(t =>
-        '<div class="squares">' + '<h2 class="tittles">' 
+        '<div id="squares">' + '<h2 id="tittles">' 
         + 'Titulo' + '</h2>' 
         + t + '</div>');
         console.log(arrayT);
         box.innerHTML = squaresMap.join('');
         
-
-        const elemento = document.querySelectorAll('#squaresBox div');
+    
+        const elemento = document.querySelectorAll('#squares');
         elemento.forEach((elemento,i)=>{
             console.log('i: ' + i);
             elemento.addEventListener('click',() =>{
@@ -55,7 +55,7 @@ window.onload = () => {
         squaresText.value = ' ';
         arrayT.push(texto);
         arrayS.push(texto2);
-        upDate(arrayS);
+        upDate(arrayS,arrayT);
         render();
     }
 }

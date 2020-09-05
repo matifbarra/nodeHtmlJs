@@ -36,19 +36,26 @@
     /* border: 1px solid black; */
     margin-top: 20px;
 }
-.squares{
+#squares{
+    
     width: 200px;
     border-radius: 5px;
     min-height: 100px;
     background-color: #C8F046;
-    /* border: 1px solid red; */
     margin-left: 10px;
     margin-bottom: 10px;
     overflow: hidden;
 }
-.tittleU{
-    font-size: 20px;
-    text-align: center;
+#dsc{
+    background-color: red;
+}
+#tittles{
+    margin-top: 0;
+    background-color: #1E9BD9;
+    font-size: 16px;
+    text-align: left;
+
+
 
     
 }
