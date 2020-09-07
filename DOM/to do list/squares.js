@@ -5,7 +5,7 @@ const arrayS = JSON.parse(localStorage.getItem('storage'))  || [];
     const render = () =>{
     
        
-    //  Metodo NO funcional (con ciclo For)
+    //  Metodo 1 - NO funcional (con ciclo For)
 
     // var n = arrayS.length;
     
@@ -36,39 +36,66 @@ const arrayS = JSON.parse(localStorage.getItem('storage'))  || [];
     //     mainContainer.appendChild(square);      
     
     // }
-
     
-    //    metodo funcional (sin ciclo for)
+    // ***********************************************************
+    
+    //  Metodo 2 - Funcional 1 (.map, join)
 
     const squaresMap = document.getElementById("squaresBox");
+    console.log(squaresMap);
     
     while (squaresMap.hasChildNodes()){
         squaresMap.removeChild(squaresMap.lastChild);
         console.log('OK')
     }
-   
-        arrayS.map((t,index) =>  {
-        const titulo = arrayT[index];
-        console.log(titulo);
-      
-        const mainContainer = document.createElement("div");
-        mainContainer.setAttribute("id","container");
-        squaresMap.appendChild(mainContainer);
-
-        const tittle =  document.createElement("h3");
-        tittle.setAttribute("id", "tit");
-        tittle.innerHTML = titulo;
-        mainContainer.appendChild(tittle);
-
-        const square = document.createElement("div");
-        square.setAttribute("id","squares");
-        square.innerHTML = t;
-        mainContainer.appendChild(square);
-    });
-
     
+    const squaresCont = arrayS.map((t,index) =>
+    
+        // '<div id = "container">' + t + '</div>');
+        '<div id = "container">' + 
+        '<h3 id = "tit">' + arrayT[index] + '</h3>' +
+            '<div id = "squares">'  
+                + t + 
+            '</div>' +
+        '</div>');
+    
+    squaresMap.innerHTML = squaresCont.join('');
+    
+    
+    
+    // ***********************************************************
 
+    //  Metodo 3 -  Funcional 2 (createElement,setAttribute,appenChild)
 
+    // const squaresMap = document.getElementById("squaresBox");
+    
+    // while (squaresMap.hasChildNodes()){
+    //     squaresMap.removeChild(squaresMap.lastChild);
+    //     console.log('OK')
+    // }
+   
+    //     arrayS.map((t,index) =>  {
+    //     const titulo = arrayT[index];
+    //     console.log(titulo);
+      
+    //     const mainContainer = document.createElement("div");
+    //     mainContainer.setAttribute("id","container");
+    //     squaresMap.appendChild(mainContainer);
+
+    //     const tittle =  document.createElement("h3");
+    //     tittle.setAttribute("id", "tit");
+    //     tittle.innerHTML = titulo;
+    //     mainContainer.appendChild(tittle);
+
+    //     const square = document.createElement("div");
+    //     square.setAttribute("id","squares");
+    //     square.innerHTML = t;
+    //     mainContainer.appendChild(square);
+    // });
+
+    // ***********************************************************
+
+    // Proceso de eliminacon de nodos
 
     const elemento = document.querySelectorAll('#squares');
     elemento.forEach((elemento,i)=>{
