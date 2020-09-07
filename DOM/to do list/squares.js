@@ -69,7 +69,7 @@ const arrayS = JSON.parse(localStorage.getItem('storage'))  || [];
     for (let i = 0; i < n; i++){
         const mainContainer = document.createElement("div");
         mainContainer.setAttribute("id","container");
-        mainContainer.innerHTML = 'test';
+        // mainContainer.innerHTML = 'test';
         squaresMap.appendChild(mainContainer);
 
         const tittle =  document.createElement("h3");
@@ -80,47 +80,29 @@ const arrayS = JSON.parse(localStorage.getItem('storage'))  || [];
         const square = document.createElement("div");
         square.setAttribute("id","squares");
         square.innerHTML = arrayS[i];
-        mainContainer.appendChild(square);
-
-        
-        
+        mainContainer.appendChild(square);      
     
     }
 
- 
-       
-
-         
-   
-    }
+    const elemento = document.querySelectorAll('#squares');
+    elemento.forEach((elemento,i)=>{
+        console.log('i: ' + i);
+        elemento.addEventListener('click',() =>{
+        elemento.parentNode.removeChild(elemento);
+        arrayS.splice(i,1); // Eliminando datos del arreglo con Array.splice
+        arrayT.splice(i,1);
+        upDate(arrayS); //Actualizando en 'localStorage'
+        render();
+        console.log(arrayS, 'i: ' + i);    
+    })
+});
+}
   
 
 
     
-
-
-
-
-
-
-
-
-
-
-    // ------------------------------------------------------------------
      
-    //     const elemento = document.querySelectorAll('#squares');
-    //     elemento.forEach((elemento,i)=>{
-    //         console.log('i: ' + i);
-    //         elemento.addEventListener('click',() =>{
-    //         elemento.parentNode.removeChild(elemento);
-    //         arrayS.splice(i,1); // Eliminando datos del arreglo con Array.splice
-    //         arrayT.splice(i,1);
-    //         upDate(arrayS); //Actualizando en 'localStorage'
-    //         render();
-    //         console.log(arrayS, 'i: ' + i);    
-    //     })
-    // });
+       
     
     
   
