@@ -44,10 +44,39 @@ window.onload = () => {
     }
 }
     
+// *********************************************************
 
+function myFunction1(){
+    var x = arrayS.map(t => 
+        '<div id="squares">' +
+            '<div id="dsc">' 
+                + t + 
+            '</div>' +
+        '</div>');
+        
+    console.log(x);
+    const box = document.getElementById('squaresBox');
+    box.innerHTML = x.join(''); 
+}    
 
+function myFunction2(){
+    var y = arrayT.map(v => 
+        '<div id="squares">' + 
+            '<h3 id="tittles">' 
+                + v + 
+            '</h3>'+ 
+            '<div id="dsc">' +       
+            '</div>' +
+        '</div>'); 
+    console.log(y);
+    const T1 = document.getElementById('squares');
+    console.log(T1);
+    T1.innerHTML = y.join();
+   
+}    
+arrayS.forEach(myFunction1);
+arrayT.forEach(myFunction2);
 
-    
     
     
     
