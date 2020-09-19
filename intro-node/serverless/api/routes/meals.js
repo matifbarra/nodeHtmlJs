@@ -26,18 +26,18 @@ router.post('/', (req,res) =>{
 // Para actualizar un elemento
 router.put('/:id', (req,res) =>{
     meals.findOneAndUpdate(req.params.id,req.body)
-    .then(x => res.sendStatus(204).send(x))
+    .then(() => res.sendStatus(204))
 });
 
-router.patch('/:id', (req,res) =>{
-    meals.findOneAndUpdate(req.params.id,req.body)
-    .then(x => res.sendStatus(204).send(x))
-});
+// router.patch('/:id', (req,res) =>{
+//     meals.findOneAndUpdate(req.params.id,req.body)
+//     .then(x => res.sendStatus(204).send(x))
+// });
 
 router.delete('/:id',(req,res)=>{
     meals.findOneAndDelete(req.params.id)
     .exec()
-    .then(x => res.sendStatus(204).send(x))
+    .then(() => res.sendStatus(204))
 });
 
 
