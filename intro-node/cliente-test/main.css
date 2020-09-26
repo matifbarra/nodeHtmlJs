@@ -30,6 +30,10 @@ body ul{
     list-style-type: none;
 }
 
+body li:hover{
+    cursor: pointer;
+}
+
 #btn{
     width: auto;
     text-align: center;

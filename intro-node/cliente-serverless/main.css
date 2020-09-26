@@ -42,6 +42,11 @@ body ul{
     margin-left: 38px;
 }
 
+#btn:disabled{
+    background-color: #ccc ;
+    color:#fff;
+}
+
 #meals-list{
     justify-items: center;
 }
