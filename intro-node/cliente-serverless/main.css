@@ -50,3 +50,12 @@ body ul{
 #meals-list{
     justify-items: center;
 }
+
+#meals-list li {
+    cursor: pointer;
+}
+
+.selected{
+    background-color: red;
+    color: white;
+}

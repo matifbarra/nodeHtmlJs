@@ -10,13 +10,37 @@
 //         const mealsMap = data.map(t => '<li>' + t.name + '</li>').join('');
 //         mealsList.innerHTML = mealsMap;
 //         btn.removeAttribute('disabled');
-
 //     })
 // }
 // ********************************************************************************
 
 // With templates String 
 window.onload = () => {
+    const orderForm = document.getElementById('order');
+    
+    orderForm.onsubmit = (e) =>{ //21
+        e.preventDefault(); //22
+        const mealId = document.getElementById('meals-id-btn');
+        mealIdValue = mealId.value; //23
+        if (!mealIdValue){
+            alert('Seleccione');
+            return;
+        }
+        const order = { //24
+            meal_id: mealIdValue,
+            user_id: "652-64-2764",
+        }
+        console.log(order); //25
+        fetch('http://localhost:3000/api/orders',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(order)
+        })
+        .then(x => console.log(x))
+    }
+
     const stringToHtml = (s) => { //8
 
         const parser = new DOMParser();//9
@@ -28,15 +52,23 @@ window.onload = () => {
     const renderItem = (item) =>{ //6
         const elemento = stringToHtml(`<li data-id="${item._id}">${item.name}</li>`)//7
         elemento.addEventListener('click',() =>{
-            elemento.classList.add('selected');
-            console.log(item);
-            console.log(elemento);
-
-    
+            const mealsList = document.getElementById('meals-list'); //3
+            Array.from(mealsList.children).forEach(x => x.classList.remove('selected')); //17
+            elemento.classList.add('selected'); //18
+            const mealsIdInput = document.getElementById('meals-id-btn');//19
+            mealsIdInput.value = item._id;//20
+            console.log('mealsIdInput: ' + mealsIdInput)
+            console.log('elemento: ' + elemento);
         })
         
         return elemento;
     }
+    const renderOrder = (order, meals) => {
+        const meal = meals.find(meal => meal._id === order.meal_id)
+        const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)
+        return element;    
+    }
+
 
     fetch('http://localhost:3000/api/meals') //1
     .then(response => response.json()) //2
@@ -45,12 +77,24 @@ window.onload = () => {
         const btn = document.getElementById('btn'); //4
         const listItems = data.map(renderItem); //5 
         mealsList.removeChild(mealsList.firstElementChild);//12
-        listItems.forEach(elemento => { //13
-        mealsList.appendChild(elemento); //14
-        btn.removeAttribute('disabled'); //15                   
+        listItems.forEach(element => { //13
+            mealsList.appendChild(element); //14
         });
-    })
-}
+        btn.removeAttribute('disabled'); //15
+        fetch('http://localhost:3000/api/orders')
+        .then(response => response.json())
+        .then(ordersData => {
+            const orderList = document.getElementById('order-list');
+            const listOrders = ordersData.map(orderData => renderOrder(orderData, data))
+                orderList.removeChild(orderList.firstElementChild);
+                listOrders.forEach(element => orderList.appendChild(element)) 
+                 
+            })
+        })
+    }
+
+
+
 
 
 
@@ -72,7 +116,14 @@ window.onload = () => {
 //12.- Para eliminar la etiqueta <p>Cargando...</p> eliminamos el 1er elemento html hijo de mealsList.
 //13 y 14.- iteramos en el arreglo de elementos listItems y para cada uno de los elementos en el arreglo utilizamos el metodo appenChild() que nos permite crear un elemento html en el DOM.
 //15.- El boton por defecto esta deshabilitado mientras la informacion carga en el DOM, con esta linea de codigo lo habilitamos quitandole ese atributo que hemos seteado en el html 
-
+//16.- En la variable childrenArray estamos vaciando todos los elementos html que estamos
+       //obteniendo de la linea anterior. childrenArray no es un arreglo como tal por lo tanto
+       //debemos convertirlo en la siguiente linea.
+//17.- Convertimos los elementos obtenidos en arreglo e iteramos con un forEach
+       //para quitarles el atributo de 'selected' el cual será nuevamente colocado
+       //en la linea en el item que hemos seleccionado en la linea siguiente
+//18.- Despues de haberle quitado a todos los elementos del arreglo el atrbuto de
+        //de 'selected' se lo colocamos nuevamente al elemento que hemos clickeado.
 
 // ********************************************************************************
 
