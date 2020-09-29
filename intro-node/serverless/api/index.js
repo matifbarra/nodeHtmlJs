@@ -3,8 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const meals = require('./routes/meals.js');
-const orders = require('./routes/orders.js');
+const meals = require('./routes/meals');
+const orders = require('./routes/orders');
 
 const app = express();
 app.use(bodyParser.json());
