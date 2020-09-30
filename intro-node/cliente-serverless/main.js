@@ -14,6 +14,9 @@
 // }
 // ********************************************************************************
 
+let mealState = [];
+
+
 // With templates String 
 window.onload = () => {
     const orderForm = document.getElementById('order');
@@ -28,7 +31,7 @@ window.onload = () => {
         }
         const order = { //24
             meal_id: mealIdValue,
-            user_id: "652-64-2764",
+            user_id: "Arnoldo Alvarez",
         }
         console.log(order); //25
         fetch('http://localhost:3000/api/orders',{
@@ -38,8 +41,14 @@ window.onload = () => {
             },
             body: JSON.stringify(order)
         })
-        .then(x => console.log(x))
+        .then(x => x.json())
+        .then(respuesta => console.log(respuesta)) 
+        //   const renderedOrder = renderOrder(respuesta,mealState)
+        //   const orderList = document.getElementById('order-list');
+        //   orderList.appendChild(renderedOrder);
+
     }
+
 // *************** Entry Food  ***********************************
     // const entryForm = document.getElementById('entryForm');
     
@@ -70,36 +79,41 @@ window.onload = () => {
 
 // *************** under construction ***********************************
 
+const stringToHtml = (s) => { //8
+
+    const parser = new DOMParser();//9
+    const doc = parser.parseFromString(s, 'text/html');
+    //10
+    return doc.body.firstChild; //11
+
+}
 
 
-    const stringToHtml = (s) => { //8
+const renderItem = (item) =>{ //6
+    const elemento = stringToHtml(`<li data-id="${item._id}">${item.name}</li>`)//7
+    elemento.addEventListener('click',() =>{
+        const mealsList = document.getElementById('meals-list'); //3
+        Array.from(mealsList.children).forEach(x => x.classList.remove('selected')); //17
+        elemento.classList.add('selected'); //18
+        const mealsIdInput = document.getElementById('meals-id-btn');//19
+        mealsIdInput.value = item._id;//20
+        console.log('mealsIdInput: ' + mealsIdInput)
+        console.log('elemento: ' + elemento);
+    })
+    
+    return elemento;
+}
 
-        const parser = new DOMParser();//9
-        const doc = parser.parseFromString(s, 'text/html');
-        //10
-        return doc.body.firstChild; //11
-    }
+const renderOrder = (order, meals) => {
+    const meal = meals.find(meal => meal._id === order.meal_id)
+    const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)
+    return element;    
+}
 
-    const renderItem = (item) =>{ //6
-        const elemento = stringToHtml(`<li data-id="${item._id}">${item.name}</li>`)//7
-        elemento.addEventListener('click',() =>{
-            const mealsList = document.getElementById('meals-list'); //3
-            Array.from(mealsList.children).forEach(x => x.classList.remove('selected')); //17
-            elemento.classList.add('selected'); //18
-            const mealsIdInput = document.getElementById('meals-id-btn');//19
-            mealsIdInput.value = item._id;//20
-            console.log('mealsIdInput: ' + mealsIdInput)
-            console.log('elemento: ' + elemento);
-        })
-        
-        return elemento;
-    }
 
-    const renderOrder = (order, meals) => {
-        const meal = meals.find(meal => meal._id === order.meal_id)
-        const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)
-        return element;    
-    }
+
+
+
 
     // fetch de las meals
     fetch('http://localhost:3000/api/meals') //1
