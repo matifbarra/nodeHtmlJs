@@ -40,6 +40,37 @@ window.onload = () => {
         })
         .then(x => console.log(x))
     }
+// *************** Entry Food  ***********************************
+    // const entryForm = document.getElementById('entryForm');
+    
+    //     const entryText = document.getElementById('entryText');
+    //     const entryDesc = document.getElementById('entryDesc');
+
+    //     const entryBtn = document.getElementById('entry-btn');
+    //     entryBtn.addEventListener('click', () =>{
+    //         const nameFood = entryText.value;   
+    //         const descFood = entryDesc.value;
+
+    //         infoFood ={
+    //            name: nameFood,
+    //            desc: descFood,
+    //         }
+            
+    //         fetch('http://localhost:3000/api/meals',{
+    //             method:'POST',
+    //             headers:{
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(infoFood)
+    //         })
+    //         .then(x => console.log(x))
+    //     })
+        
+    
+
+// *************** under construction ***********************************
+
+
 
     const stringToHtml = (s) => { //8
 
@@ -63,13 +94,14 @@ window.onload = () => {
         
         return elemento;
     }
+
     const renderOrder = (order, meals) => {
         const meal = meals.find(meal => meal._id === order.meal_id)
         const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)
         return element;    
     }
 
-
+    // fetch de las meals
     fetch('http://localhost:3000/api/meals') //1
     .then(response => response.json()) //2
     .then(data => {
@@ -81,17 +113,19 @@ window.onload = () => {
             mealsList.appendChild(element); //14
         });
         btn.removeAttribute('disabled'); //15
+        
+        // fetch de las orders
         fetch('http://localhost:3000/api/orders')
         .then(response => response.json())
         .then(ordersData => {
             const orderList = document.getElementById('order-list');
             const listOrders = ordersData.map(orderData => renderOrder(orderData, data))
-                orderList.removeChild(orderList.firstElementChild);
-                listOrders.forEach(element => orderList.appendChild(element)) 
+            orderList.removeChild(orderList.firstElementChild);
+            listOrders.forEach(element => orderList.appendChild(element)) 
                  
-            })
         })
-    }
+    })
+}
 
 
 

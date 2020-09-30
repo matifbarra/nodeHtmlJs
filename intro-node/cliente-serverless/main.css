@@ -30,7 +30,7 @@ body ul{
     list-style-type: none;
 }
 
-#btn{
+#btn, #entry-btn{
     width: auto;
     text-align: center;
     background-color: #17495e ;
@@ -59,3 +59,4 @@ body ul{
     background-color: red;
     color: white;
 }
+
