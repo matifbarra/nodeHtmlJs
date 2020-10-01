@@ -33,44 +33,44 @@ const renderOrder = (order, meals) => { //25
     return element;    
 }
 
+const orderForm = document.getElementById('order');//28
+orderForm.onsubmit = (e) =>{ //29
+    btn.setAttribute('disabled', true)
+    e.preventDefault(); 
+   
+    const mealId = document.getElementById('meals-id-btn');//30
+    mealIdValue = mealId.value; 
+    if (!mealIdValue){ //31
+        alert('Seleccione');
+        return;
+    }
+    const order = { //32
+        meal_id: mealIdValue,
+        user_id: "Arnoldo Alvarez",
+    }
+// fetch de Post de orders
+    fetch('http://localhost:3000/api/orders',{ //33
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(order)
+    })
+    .then(x => x.json())
+    .then(respuesta => {
+        console.log(respuesta);
+        console.log(mealState);
+        const renderedOrder = renderOrder(respuesta, mealState);//34
+        const orderList = document.getElementById('order-list');//35
+        orderList.appendChild(renderedOrder);
+        btn.removeAttribute('disabled')
+
+    })
+}
+
+
 window.onload = () => {
     
-    const orderForm = document.getElementById('order');//28
-    orderForm.onsubmit = (e) =>{ //29
-        btn.setAttribute('disabled', true)
-        e.preventDefault(); 
-       
-        const mealId = document.getElementById('meals-id-btn');//30
-        mealIdValue = mealId.value; 
-        if (!mealIdValue){ //31
-            alert('Seleccione');
-            return;
-        }
-        const order = { //32
-            meal_id: mealIdValue,
-            user_id: "Arnoldo Alvarez",
-        }
-    // fetch de Post de orders
-        fetch('http://localhost:3000/api/orders',{ //33
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(order)
-        })
-        .then(x => x.json())
-        .then(respuesta => {
-            console.log(respuesta);
-            console.log(mealState);
-            const renderedOrder = renderOrder(respuesta, mealState);//34
-            const orderList = document.getElementById('order-list');//35
-            orderList.appendChild(renderedOrder);
-            btn.removeAttribute('disabled')
-
-        })
-    }
-
-
     // fetch de las meals
     fetch('http://localhost:3000/api/meals') //1
     .then(response => response.json()) //2
