@@ -1,7 +1,17 @@
 const express = require('express');
 const users = require('../models/users');
 const crypto = require('crypto'); //Esta libreria se usa para encriptar data
+const jwt = require('jsonwebtoken');
+const isAuthenticated = require('../auth');
+
 const router = express.Router();
+
+
+const signToken = (_id) =>{
+    return jwt.sign({ _id }, 'mi-secreto',{
+        expiresIn: 60 * 60 * 24 * 365,
+    })
+}
 
 // Para crear usuarios que se registren
 router.post('/register', (req,res) => {
@@ -44,10 +54,15 @@ router.post('/login', (req,res) =>{
                         const token = signToken(user._id)
                         return res.send({token})
                     }
-                    return res.send('Usuario y/o contraseña incorrecta')
+                    // return res.send('Usuario y/o contraseña incorrecta')
                 })
             })
         })
+
+router.get('/me', isAuthenticated,(req,res) {
+    res.send(req.user)
+
+})
 
 module.exports = router;
 
@@ -65,12 +80,10 @@ module.exports = router;
 //9.- Este es el callback de 'crypto.pbkdf2' el cual nos va a devolver la key que no va a ser mas que 
     //el password encriptado envuelto en otra capa de String en base 64 bits (encryptedPassword)
 //10.- Comparamos el password entrado por el usuario con el que viene en user.password y si es igual
-    //declaramos la variable 'token' que almacenara el user._id firmado con el metodo signToken y este 
+    //declaramos la variable 'token' que almacenara el user._id firmado con la funcion signToken y este 
     //sera devuelto con res.send para ser usado por el usario en el resto de la aplicacion.
     
-
-
-
+ //11.- signToken: lo que hace es encriptar nuestro user._id el cual sera devuelto encriptado al usuario.
 
 
 //Extras:

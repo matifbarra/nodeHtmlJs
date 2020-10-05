@@ -1,4 +1,5 @@
 const express = require('express');
+const { isAuthenticated, hasRoles} = require('../auth');
 const orders = require('../models/orders');
 const router = express.Router();
 
@@ -19,19 +20,20 @@ router.get('/:id', (req,res) =>{
 });
 
 // Para crear un elemento
-router.post('/', (req,res) =>{
-    orders.create(req.body)
+router.post('/', isAuthenticated, hasRoles(['admin','user']),  (req,res) =>{  //hasRole('user') Se podria utilizar para especificar el role
+    const { _id } = req.user
+    orders.create({...req.body,user_id: _id})
     .then(x => res.status(201).send(x));
     
 });
 
 // Para actualizar un elemento
-router.put('/:id', (req,res) =>{
+router.put('/:id',isAuthenticated, (req,res) =>{
     orders.findOneAndUpdate(req.params.id,req.body)
     .then(x => res.sendStatus(204));
 });
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id',isAuthenticated, (req,res)=>{
     orders.findOneAndDelete(req.params.id,req.body)
     .then(x => res.sendStatus(204));
 })

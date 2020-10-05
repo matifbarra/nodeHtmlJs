@@ -1,5 +1,15 @@
 {
   "scripts": {
     "build": "rm -rf public && mkdir public && echo 'Custom Build' > ./public/index.html"
-  }
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  },
+  "name": "serverless",
+  "description": "This directory is a brief example of using a Custom Build script that can be deployed with Vercel and zero configuration.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }
