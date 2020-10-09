@@ -20,7 +20,7 @@ router.get('/:id', (req,res) =>{
 });
 
 // Para crear un elemento
-router.post('/', isAuthenticated, hasRoles(['admin','user']),  (req,res) =>{  //hasRole('user') Se podria utilizar para especificar el role
+router.post('/', isAuthenticated, hasRoles(['admin','user']),(req,res) =>{  //hasRole('user') Se podria utilizar para especificar el role
     const { _id } = req.user
     orders.create({...req.body,user_id: _id})
     .then(x => res.status(201).send(x));

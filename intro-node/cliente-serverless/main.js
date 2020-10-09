@@ -1,5 +1,5 @@
 let mealState = [];
-
+let ruta = 'login' //login,register o 
 
 const stringToHtml = (s) => { //8
 
@@ -33,15 +33,16 @@ const renderOrder = (order, meals) => { //25
     return element;    
 }
 
-const orderForm = document.getElementById('order');//28
-orderForm.onsubmit = (e) =>{ //29
+const inicializaFormulario = () => {
+    const orderForm = document.getElementById('order');//28
+    orderForm.onsubmit = (e) =>{ //29
     btn.setAttribute('disabled', true)
     e.preventDefault(); 
    
     const mealId = document.getElementById('meals-id-btn');//30
     mealIdValue = mealId.value; 
     if (!mealIdValue){ //31
-        alert('Seleccione');
+        alert('Seleccione una opcion de comida');
         return;
     }
     const order = { //32
@@ -67,10 +68,9 @@ orderForm.onsubmit = (e) =>{ //29
 
     })
 }
+}
 
-
-window.onload = () => {
-    
+const inicializaDatos = () => {
     // fetch de las meals
     fetch('http://localhost:3000/api/meals') //1
     .then(response => response.json()) //2
@@ -96,6 +96,62 @@ window.onload = () => {
                  
         })
     })
+}
+
+const renderApp = () => {
+    const token = localStorage.getItem('token')
+   
+    if (token){
+        console.log('token:' + token)
+        return renderOrders()            
+    }
+    renderLogin()
+    return console.log('no hay token')
+}
+
+const renderOrders = () => {
+    const ordersView = document.getElementById('orders-view')
+    document.getElementsByTagName('body')[0].innerHTML = ordersView.innerHTML
+    inicializaFormulario()
+    inicializaDatos()
+
+}
+
+const renderLogin = () =>{
+    const loginView = document.getElementById('login-view')
+    document.getElementsByTagName('body')[0].innerHTML = loginView.innerHTML
+        
+    const loginForm = document.getElementById('login-form')
+    loginForm.onsubmit = (e) => {
+       
+        e.preventDefault() //los onsubmit reciben un evento y debemos prevenirlos para no hacer refresh
+        const email = document.getElementById('email').value
+        const password = document.getElementById('password').value
+        fetch('http://localhost:3000/api/auth/login', {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+                // body: JSON.stringify({ email: email, password: password }) Esto es lo mismo que lo de 
+                //arriba pero como los nombres de la variables es el mismo se puede acortar  
+            }).then( x => x.json())
+            .then(response => {
+                localStorage.setItem('token', response.token)
+                ruta = 'orders'
+                renderOrders()
+
+
+            })
+    }
+}
+
+window.onload = () => {
+    renderApp()
+    // renderLogin()
+    
+    
+    
     
 }
 
@@ -126,7 +182,7 @@ window.onload = () => {
        //en la linea en el item que hemos seleccionado en la linea siguiente
 //18.- Despues de haberle quitado a todos los elementos del arreglo el atrbuto de
         //de 'selected' se lo colocamos nuevamente al elemento que hemos clickeado.
-//19.- utilizamos el elemento input de tipo hidden del html para agregarle el item._id
+//19.- utilizamos el elemento input (hidden) del html para setearle el valor item._id
 //20.- hacemos un fetch a la url de la aplicacion buscando las orders
 //21.- traemos del DOM los elementos html 'order-list'
 //22.- hacemos un mapeo de ordersData (que contiene las orders que fueron traidas por fetch),utilizamos el indice
@@ -143,11 +199,11 @@ window.onload = () => {
         //En esa template string enviamos dinamicamente: ${order._id}"> ${meal.name} - ${order.user_id}
  
 //28.- Traemos del DOM los elementos html 'order' y lo guardamos en la variable 'orderForm'
-//29.- Utilizamos 'orderForm' para utilizar el metodo 'onsubmit()' que no es mas que escuchador de evento.
+//29.- Utilizamos 'orderForm' para utilizar el metodo 'onsubmit()' que no es mas que un escuchador de evento.
         //el evento lo pasamos como parametro y ejecutamos un preventDefault. Tambien deshabilitamos el boton
         //btn mientras se ejecuta el proceso.
 //30.- nos traemos nuevamente el input de tipo hidden que usamos en el paso 19 pero esta vez ya viene con el 
-        //id de la meal (item._id), y lo guardamos en la variable mealId. Luego ese valor lo pasamos a otra 
+        //valor de la meal (item._id), y lo guardamos en la variable mealId. Luego ese valor lo pasamos a otra 
         //variable 'mealIdValue' 
 
 //31.- Hacemos un if para verificar que al momento que ejecutamos el onsubmit teniamos un mealIdValue válido

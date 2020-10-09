@@ -8,22 +8,20 @@ body{
 
 body div{
     background-color: #fff;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     flex-grow: 1;
-    padding: 10px;
+    /* padding: 10px; */
     margin: 5px;
     margin-top: 0;
 
 }
 
-body div:first-child {
+#meals {
     margin-left:0px;
 }
-
-body div:last-child {
+#orders {
     margin-right:0px;
 }
-
 
 
 body ul{
@@ -59,4 +57,51 @@ body ul{
     background-color: red;
     color: white;
 }
+
+.form-main{
+    margin: 0 auto;
+    margin-top: 100px;
+    max-width: 300px;
+    padding: 15px;
+    padding-bottom: 30px;
+   
+}
+
+#form-tittle{
+    text-align: center;
+    font-size: 25px;
+}
+
+.login-form p {
+    margin-bottom: 5px;
+    font-size: 14px;
+
+}
+
+form input{
+    font-size: 14px;
+    width: calc(100% - 10px);
+    height: 35px;
+    padding-left: 5px;
+    background-color: #eee;
+    border: none;
+    color: #555;
+}
+
+.btn{
+    background-color: #007598;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    /* border-radius: 4px; */
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.block {
+    width: calc(100% - 8px);
+}
+
+
+
 

@@ -7,7 +7,7 @@ const isAuthenticated = require('../auth');
 const router = express.Router();
 
 
-const signToken = (_id) =>{
+const signToken = (_id) =>{//11
     return jwt.sign({ _id }, 'mi-secreto',{
         expiresIn: 60 * 60 * 24 * 365,
     })
@@ -54,18 +54,18 @@ router.post('/login', (req,res) =>{
                         const token = signToken(user._id)
                         return res.send({token})
                     }
-                    // return res.send('Usuario y/o contraseña incorrecta')
+                    
                 })
             })
         })
 
-router.get('/me', isAuthenticated,(req,res) {
-    res.send(req.user)
-
-})
+// router.get('/me', isAuthenticated,(req,res) => {
+//     res.send(req.user)
+// })
 
 module.exports = router;
 
+//Endpoints de la parte de autorizacion/autenticacion
 //Extras and explanations
 
 //1.- Utilizamos la libreria Crypto para crear nuestro salt con Bytes aleatorios
