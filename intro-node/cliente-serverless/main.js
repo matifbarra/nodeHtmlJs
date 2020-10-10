@@ -1,5 +1,6 @@
 let mealState = [];
-let ruta = 'login' //login,register o 
+// let ruta = 'login' 
+//login,register o 
 
 const stringToHtml = (s) => { //8
 
@@ -111,7 +112,8 @@ const renderApp = () => {
 
 const renderOrders = () => {
     const ordersView = document.getElementById('orders-view')
-    document.getElementsByTagName('body')[0].innerHTML = ordersView.innerHTML
+    document.getElementById('app').innerHTML = ordersView.innerHTML
+    // document.getElementsByTagName('body')[0].innerHTML = ordersView.innerHTML
     inicializaFormulario()
     inicializaDatos()
 
@@ -119,7 +121,8 @@ const renderOrders = () => {
 
 const renderLogin = () =>{
     const loginView = document.getElementById('login-view')
-    document.getElementsByTagName('body')[0].innerHTML = loginView.innerHTML
+    document.getElementById('app').innerHTML = loginView.innerHTML
+    // document.getElementsByTagName('body')[0].innerHTML = loginView.innerHTML
         
     const loginForm = document.getElementById('login-form')
     loginForm.onsubmit = (e) => {
@@ -138,7 +141,7 @@ const renderLogin = () =>{
             }).then( x => x.json())
             .then(response => {
                 localStorage.setItem('token', response.token)
-                ruta = 'orders'
+                // ruta = 'orders'
                 renderOrders()
 
 
@@ -148,7 +151,7 @@ const renderLogin = () =>{
 
 window.onload = () => {
     renderApp()
-    // renderLogin()
+    
     
     
     

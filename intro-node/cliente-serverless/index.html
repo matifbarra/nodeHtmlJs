@@ -8,49 +8,54 @@
     <title>Cliente Serverless</title>
 </head>
 <body>
-
-     
-    
-</body>
-<template id="login-view">
-    <div class="form-main">
-        <p id="form-tittle">Inicio de Sesión</p>
-        <form action="" class="login-form" id="login-form">
-            <div>
-                <p> Introduzca su email</p>
-                <input type="text" placeholder="email" id= "email">
-            </div>
-            <div>
-                <p> Contraseña</p>
-                <input type="password" placeholder="contraseña" id="password">
-            </div>
-            <div>
-                <button class="btn block">Enviar</button>
-            </div>
-           
-        </form>
+    <div id="app">
         
     </div>
-</template>
+     
+    <template id="login-view">
+        <div class="form-main">
+            <p id="form-tittle">Inicio de Sesión</p>
+            <form action="" class="login-form" id="login-form">
+                <div>
+                    <p> Introduzca su email</p>
+                    <input type="text" placeholder="email" id= "email">
+                </div>
+                <div>
+                    <p> Contraseña</p>
+                    <input type="password" placeholder="contraseña" id="password">
+                </div>
+                <div>
+                    <button class="btn block">Enviar</button>
+                </div>
+               
+            </form>
+            
+        </div>
+    </template>
+    
+    <template id="orders-view">
+        
+        <div id="meals">
+            <ul id="meals-list">
+                <p>Cargando...</p>
+            </ul>
+            <form action="" id="order">
+                <input type="hidden" id="meals-id-btn">
+                <button id="btn" disabled>Enviar</button>
+            </form>
+        </div>
+        
+        
+        <div id="orders">
+            <ul id="order-list">
+                <p>Cargando...</p>
+            </ul>
+        </div>
 
-<template id="orders-view">
-    <div id="meals">
-        <ul id="meals-list">
-            <p>Cargando...</p>
-        </ul>
-        <form action="" id="order">
-            <input type="hidden" id="meals-id-btn">
-            <button id="btn" disabled>Enviar</button>
-        </form>
-    </div>
-    
-    
-    <div id="orders">
-        <ul id="order-list">
-            <p>Cargando...</p>
-        </ul>
-    </div>
-</template>
+    </template>    
+
+</body>
+
 <script src="./main.js"></script>
 </html>
 
