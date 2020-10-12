@@ -109,6 +109,7 @@ const renderApp = () => {
         console.log('token:' + token)
         return renderOrders()            
     }
+    
     renderLogin()
 }
 
@@ -119,14 +120,66 @@ const renderOrders = () => {
     inicializaDatos()
 
 }
+// ***************UNDER CONSTRUCTION *****************************************
+const renderRegister = () =>{
+    // console.log('funcionando')
+    
+    const registerView = document.getElementById('register-view')
+    document.getElementById('app').innerHTML = registerView.innerHTML
+    const registerForm = document.getElementById('register-form')
+    
+    
+            
+    // registerForm.onsubmit = (e) => {
+       
+    //     e.preventDefault() //los onsubmit reciben un evento y debemos prevenirlos para no hacer refresh
+    //     const nombre = document.getElementById('nombre').value
+    //     const direccion = document.getElementById('direccion').value
+    //     const email = document.getElementById('email').value
+    //     const password = document.getElementById('password').value
+        
+        // fetch('http://localhost:3000/api/auth/login', {
+        //         method:'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({ email, password })
+               
+        //     }).then( x => x.json())
+        //     .then(response => {
+        //         localStorage.setItem('token', response.token)
+        //         ruta = 'orders'
+        //         return response.token
+                
+        //     })
+        //     .then(token => {
+        //         return fetch('http://localhost:3000/api/auth/me',{
+        //             method:'GET',
+        //             headers: {
+        //             'Content-Type': 'application/json',
+        //             authorization: token,
+        //         },
+        //     })
+        // })
+        // .then(x => x.json())
+        // .then(fetchedUser => {
+        //     localStorage.setItem('user', JSON.stringify(fetchedUser) )
+        //     user = fetchedUser
+        //     renderOrders()
+        // }) 
+    }
+
+// ***************************************************************************
+
 
 const renderLogin = () =>{
+    
     const loginView = document.getElementById('login-view')
     document.getElementById('app').innerHTML = loginView.innerHTML
-    // document.getElementsByTagName('body')[0].innerHTML = loginView.innerHTML
-        
     const loginForm = document.getElementById('login-form')
+    
     loginForm.onsubmit = (e) => {
+        
        
         e.preventDefault() //los onsubmit reciben un evento y debemos prevenirlos para no hacer refresh
         const email = document.getElementById('email').value
@@ -161,11 +214,19 @@ const renderLogin = () =>{
             localStorage.setItem('user', JSON.stringify(fetchedUser) )
             user = fetchedUser
             renderOrders()
-        }) 
-    }
-}
+        })
+         
+     }
+        const regButton = document.getElementById('regB')
+        console.log(regButton)
+        regButton.addEventListener("click", renderRegister)
 
+    }
+
+
+    
 window.onload = () => {
+    
     renderApp()
 }
 
