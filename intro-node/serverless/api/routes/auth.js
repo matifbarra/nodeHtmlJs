@@ -12,32 +12,6 @@ const signToken = (_id) =>{//11
     })
 }
 
-// Para crear usuarios que se registren
-router.post('/register', (req,res) => {
-    const { email, password } = req.body
-    crypto.randomBytes(16, (err, salt) => { //1
-        const newSalt = salt.toString('base64')//2
-        crypto.pbkdf2(password, newSalt, 10000, 64, 'sha1', (err, key) =>{ //3
-            const encryptedPassword = key.toString('base64')//4
-            users.findOne({ email })//5
-            .exec()
-            .then(user => {
-                if (user){
-                    return res.send('Usuario ya existe')
-                }
-                users.create({ //6
-                    email,
-                    password: encryptedPassword,
-                    salt: newSalt,
-                }).then(() => {
-                    res.send('Usuario creado con exito')
-                })
-            })
-
-        })
-    })
-  });
-
 // Login de usuarios ya registrados  
 router.post('/login', (req,res) =>{
     const { email, password } = req.body
@@ -64,8 +38,6 @@ router.get('/me', isAuthenticated, (req,res) => {
     const { _id, email} = req.user
     res.send({ _id, email})
 })
-
-
 
 module.exports = router;
 

@@ -104,7 +104,6 @@ const inicializaDatos = () => {
 
 const renderApp = () => {
     const token = localStorage.getItem('token')
-   
     if (token){
         user = JSON.parse(localStorage.getItem('user')) 
         console.log('token:' + token)
