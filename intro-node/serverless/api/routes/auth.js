@@ -59,10 +59,12 @@ router.post('/login', (req,res) =>{
             })
         })
 
-router.get('/me', isAuthenticated, hasRoles(['admin','user']), (req,res) => {
-    res.send(req.user)
-})
 
+
+router.get('/me', isAuthenticated, (req,res) => {
+    const { _id, email} = req.user
+    res.send({ _id, email})
+})
 
 
 

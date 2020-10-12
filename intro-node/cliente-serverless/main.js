@@ -75,7 +75,7 @@ const inicializaFormulario = () => {
 }
 
 const inicializaDatos = () => {
-    // fetch de las meals
+    // fetch de GET de las meals
     fetch('http://localhost:3000/api/meals') //1
     .then(response => response.json()) //2
     .then(data => {
