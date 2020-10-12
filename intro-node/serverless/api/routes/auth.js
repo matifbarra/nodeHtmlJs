@@ -2,8 +2,7 @@ const express = require('express');
 const users = require('../models/users');
 const crypto = require('crypto'); //Esta libreria se usa para encriptar data
 const jwt = require('jsonwebtoken');
-const isAuthenticated = require('../auth');
-
+const { isAuthenticated, hasRoles } = require('../auth')
 const router = express.Router();
 
 
@@ -12,6 +11,7 @@ const signToken = (_id) =>{//11
         expiresIn: 60 * 60 * 24 * 365,
     })
 }
+
 
 // Para crear usuarios que se registren
 router.post('/register', (req,res) => {
@@ -59,9 +59,12 @@ router.post('/login', (req,res) =>{
             })
         })
 
-// router.get('/me', isAuthenticated,(req,res) => {
-//     res.send(req.user)
-// })
+router.get('/me', isAuthenticated, hasRoles(['admin','user']), (req,res) => {
+    res.send(req.user)
+})
+
+
+
 
 module.exports = router;
 

@@ -1,6 +1,7 @@
 let mealState = [];
-// let ruta = 'login' 
+let ruta = 'login' 
 //login,register o 
+let user = {}
 
 const stringToHtml = (s) => { //8
 
@@ -35,26 +36,29 @@ const renderOrder = (order, meals) => { //25
 }
 
 const inicializaFormulario = () => {
+    const token = localStorage.getItem('token') //agregado para resolver problema   
     const orderForm = document.getElementById('order');//28
     orderForm.onsubmit = (e) =>{ //29
     btn.setAttribute('disabled', true)
     e.preventDefault(); 
    
-    const mealId = document.getElementById('meals-id-btn');//30
+    const mealId = document.getElementById('meals-id-btn')//30
     mealIdValue = mealId.value; 
     if (!mealIdValue){ //31
         alert('Seleccione una opcion de comida');
+        btn.removeAttribute('disabled')
         return;
     }
     const order = { //32
         meal_id: mealIdValue,
-        user_id: "Arnoldo Alvarez",
+        user_id: user._id,
     }
 // fetch de Post de orders
     fetch('http://localhost:3000/api/orders',{ //33
         method:'POST',
         headers:{
             'Content-Type': 'application/json',
+            authorization: token,
         },
         body: JSON.stringify(order)
     })
@@ -66,7 +70,6 @@ const inicializaFormulario = () => {
         const orderList = document.getElementById('order-list');//35
         orderList.appendChild(renderedOrder);
         btn.removeAttribute('disabled')
-
     })
 }
 }
@@ -103,17 +106,16 @@ const renderApp = () => {
     const token = localStorage.getItem('token')
    
     if (token){
+        user = JSON.parse(localStorage.getItem('user')) 
         console.log('token:' + token)
         return renderOrders()            
     }
     renderLogin()
-    return console.log('no hay token')
 }
 
 const renderOrders = () => {
     const ordersView = document.getElementById('orders-view')
     document.getElementById('app').innerHTML = ordersView.innerHTML
-    // document.getElementsByTagName('body')[0].innerHTML = ordersView.innerHTML
     inicializaFormulario()
     inicializaDatos()
 
@@ -141,21 +143,31 @@ const renderLogin = () =>{
             }).then( x => x.json())
             .then(response => {
                 localStorage.setItem('token', response.token)
-                // ruta = 'orders'
-                renderOrders()
-
-
+                ruta = 'orders'
+                return response.token
+                
             })
+            .then(token => {
+                return fetch('http://localhost:3000/api/auth/me',{
+                    method:'GET',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    authorization: token,
+                },
+            })
+        })
+        .then(x => x.json())
+        // .then(user => console.log(user))
+        .then(fetchedUser => {
+            localStorage.setItem('user', JSON.stringify(fetchedUser) )
+            user = fetchedUser
+            renderOrders()
+        }) 
     }
 }
 
 window.onload = () => {
     renderApp()
-    
-    
-    
-    
-    
 }
 
 
