@@ -12,7 +12,6 @@ const signToken = (_id) =>{//11
     })
 }
 
-
 // Para crear usuarios que se registren
 router.post('/register', (req,res) => {
     const { email, password } = req.body

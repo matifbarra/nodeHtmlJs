@@ -6,11 +6,11 @@ const cors = require('cors');
 const meals = require('./routes/meals');
 const orders = require('./routes/orders');
 const auth = require('./routes/auth');
+const users = require('./routes/users');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-
 // MondoDB Connection
 mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify:false});
 
@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTopology:
 app.use('/api/meals', meals);
 app.use('/api/orders', orders);
 app.use('/api/auth', auth);
-
+app.use('/api/users', users);
 // exporting app to others modules
 module.exports = app;
 
