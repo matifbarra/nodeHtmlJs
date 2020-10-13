@@ -28,64 +28,80 @@ const renderItem = (item) =>{ //6
     return elemento;
 }
 
-
 // Render de las Orders
 const renderOrder = (order, meals) => { //25
     const meal = meals.find(meal => meal._id === order.meal_id)//26
+    // console.log(meal)
     const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)//27
     return element;    
 }
-
 // ***************UNDER CONSTRUCTION *****************************************
-// const renderMeals = () => {
 
-//     // console.log('adentro de renderMeals')
+const renderMeal = () => {
+    console.log('nuevamente vamos')
+    // const nameMeal = document.getElementById('name-meal')
+    // const descMeal = document.getElementById('desc-meal')
+    const mealsView = document.getElementById('meals-view');
+    document.getElementById('app').innerHTML = mealsView.innerHTML
+    const sendMealBtn =  document.getElementById('send-meal')
+    console.log(sendMealBtn) 
 
-//     const mealsView = document.getElementById('meals-view')
-//     document.getElementById('app').innerHTML = mealsView.innerHTML
-//     const mealForm = document.getElementById('meal-form')
-//     const entryForm = document.getElementById('meals-view')
-//     const entryName = document.getElementById('nombre')
-//     const entryDesc = document.getElementById('desc')
-//     const sendMeal = document.getElementById('sendMeal')
-    
-//     sendMeal.addEventListener("click", () => {
 
-//         const nameFood = entryName.value
-//         console.log(nameFood)   
-//         const descFood = entryDesc.value
-//         console.log(descFood)
-//         infoFood ={
-//             name: nameFood,
-//             desc: descFood,
-//         }
-//         fetch('http://localhost:3000/api/meals', {
-//             method:'POST',
-//             headers:{
-//             'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(infoFood)
-//         })
-//         .then(x => console.log(x))
+    // // action
+    sendMealBtn.addEventListener("click" , () =>{
+        console.log('adentro de la funcion')
+        const nameFood = entryText.value
+        const descFood = entryDesc.value
         
-// renderApp()
-        // .then(respuesta => {
-        //     console.log(respuesta)
-        //     const mealsList = document.getElementById('meals-list')
-        //     document.getElementById('app').innerHTML = mealsList.innerHTML
+        const infoMeal={
+        name: nameFood,
+        desc: descFood,
+        }
 
-        // })
-//     })
-// }
+        fetch('http://localhost:3000/api/meals',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(infoMeal)
+        })
+        .then(x => console.log(x))
+        renderLogin()
+    })
+        
+
+}
+    //     const nameFood = entryText.value
+    //     const descFood = entryDesc.value
+        
+    //     const infoMeal={
+    //     name: nameFood,
+    //     desc: descFood,
+    //     }
+
+    //     fetch('http://localhost:3000/api/meals',{
+    //         method:'POST',
+    //         headers:{
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(infoMeal)
+    //     })
+    //     .then(x => console.log(x))
+    // })
+
     
 
 
 
-// *************** Entry Food  ***********************************
-    // const entryForm = document.getElementById('entryForm');
+
+
+
+
     
-    //     const entryText = document.getElementById('entryText');
-    //     const entryDesc = document.getElementById('entryDesc');
+        // const nameMeal = document.getElementById('nameMeal')
+        // console.log(nameMeal)
+        // const descMeal = document.getElementById('descMeal')
+        // console.log(nameMeal)
 
     //     const entryBtn = document.getElementById('entry-btn');
     //     entryBtn.addEventListener('click', () =>{
@@ -106,8 +122,11 @@ const renderOrder = (order, meals) => { //25
     //         })
     //         .then(x => console.log(x))
     //     })
-// ******************************************************************
 
+
+
+
+// ***************************************************************************
 
 const inicializaFormulario = () => {
     const token = localStorage.getItem('token') //agregado para resolver problema   
@@ -145,13 +164,9 @@ const inicializaFormulario = () => {
         orderList.appendChild(renderedOrder);
         btn.removeAttribute('disabled')
     })
-    
-
-}
-const entryBtnMeals = document.getElementById('entryBtn')
-// entryBtnMeals.addEventListener("click", renderMeals)
-
-
+    }
+    const entryMealBtn = document.getElementById('entryBtn')
+    entryMealBtn.addEventListener("click", renderMeal)
 }
 
 const inicializaDatos = () => {
@@ -180,8 +195,10 @@ const inicializaDatos = () => {
                  
         })
     })
-}
 
+    
+    
+}
 
 const renderApp = () => {
     const token = localStorage.getItem('token')
@@ -255,12 +272,12 @@ const renderRegister = () =>{
         })
         alert('Registro exitoso, Inicia sesion con tus nuevas creadenciales')
         renderLogin()
-    }) 
-}
-}
-    
-    
 
+}) 
+}
+}
+    
+    
 const renderLogin = () =>{
     
     const loginView = document.getElementById('login-view')
