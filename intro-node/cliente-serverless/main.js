@@ -109,7 +109,7 @@ const renderApp = () => {
         console.log('token:' + token)
         return renderOrders()            
     }
-    alert('usuario no existe')
+    // alert('usuario no existe')
     renderLogin()
 }
 
@@ -172,7 +172,7 @@ const renderRegister = () =>{
             return response.token
             
         })
-        alert('Registro exitoso')
+        alert('Registro exitoso, Inicia sesion con tus nuevas creadenciales')
         renderLogin()
     //     .then(token => {
     //         return fetch('http://localhost:3000/api/auth/me',{
@@ -217,12 +217,17 @@ const renderLogin = () =>{
                 body: JSON.stringify({ email, password })
                 // body: JSON.stringify({ email: email, password: password }) Esto es lo mismo que lo de 
                 //arriba pero como los nombres de la variables es el mismo se puede acortar  
-            }).then( x => x.json())
+            })
+            .then(res => {
+                if (res.status == 404){
+                    alert('usuario No encontrado')
+                }
+                return res.json()
+            })
             .then(response => {
                 localStorage.setItem('token', response.token)
                 ruta = 'orders'
                 return response.token
-                
             })
             .then(token => {
                 return fetch('http://localhost:3000/api/auth/me',{
@@ -234,16 +239,14 @@ const renderLogin = () =>{
             })
         })
         .then(x => x.json())
-        // .then(user => console.log(user))
-        .then(fetchedUser => {
-            localStorage.setItem('user', JSON.stringify(fetchedUser) )
-            user = fetchedUser
-            renderOrders()
-        })
-         
+            // .then(user => console.log(user))
+            .then(fetchedUser => {
+                localStorage.setItem('user', JSON.stringify(fetchedUser) )
+                user = fetchedUser
+                renderOrders()            
+            })
      }
         const regButton = document.getElementById('regB')
-        console.log(regButton)
         regButton.addEventListener("click", renderRegister)
 
     }
@@ -251,7 +254,6 @@ const renderLogin = () =>{
 
     
 window.onload = () => {
-    
     renderApp()
 }
 
