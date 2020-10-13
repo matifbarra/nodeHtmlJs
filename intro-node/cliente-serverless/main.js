@@ -31,9 +31,83 @@ const renderItem = (item) =>{ //6
 // Render de las Orders
 const renderOrder = (order, meals) => { //25
     const meal = meals.find(meal => meal._id === order.meal_id)//26
+    // console.log(meal)
     const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)//27
     return element;    
 }
+// ***************UNDER CONSTRUCTION *****************************************
+
+const renderMeal = () => {
+    console.log('nuevamente vamos')
+    // const nameMeal = document.getElementById('name-meal')
+    // const descMeal = document.getElementById('desc-meal')
+    const mealsView = document.getElementById('meals-view');
+    document.getElementById('app').innerHTML = mealsView.innerHTML
+    const sendMealBtn =  document.getElementById('send-meal')
+    console.log(sendMealBtn) 
+
+
+    // // action
+    sendMealBtn.addEventListener("click" , () =>{
+        console.log('adentro de la funcion')
+        const nameFood = entryText.value
+        const descFood = entryDesc.value
+        
+        const infoMeal={
+        name: nameFood,
+        desc: descFood,
+        }
+
+        fetch('http://localhost:3000/api/meals',{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(infoMeal)
+        })
+        .then(x => console.log(x))
+            // .then(user => console.log(user))
+            alert('Registro ingresado con exito, oprima ok para continuar...')
+            //renderLogin()
+            const ordersView = document.getElementById('orders-view')
+            document.getElementById('app').innerHTML = ordersView.innerHTML            
+            inicializaFormulario()
+            inicializaDatos()
+        
+    })
+        
+}
+   
+ 
+        // const nameMeal = document.getElementById('nameMeal')
+        // console.log(nameMeal)
+        // const descMeal = document.getElementById('descMeal')
+        // console.log(nameMeal)
+
+    //     const entryBtn = document.getElementById('entry-btn');
+    //     entryBtn.addEventListener('click', () =>{
+    //         const nameFood = entryText.value;   
+    //         const descFood = entryDesc.value;
+
+    //         infoFood ={
+    //            name: nameFood,
+    //            desc: descFood,
+    //         }
+            
+    //         fetch('http://localhost:3000/api/meals',{
+    //             method:'POST',
+    //             headers:{
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(infoFood)
+    //         })
+    //         .then(x => console.log(x))
+    //     })
+
+
+
+
+// ***************************************************************************
 
 const inicializaFormulario = () => {
     const token = localStorage.getItem('token') //agregado para resolver problema   
@@ -71,7 +145,9 @@ const inicializaFormulario = () => {
         orderList.appendChild(renderedOrder);
         btn.removeAttribute('disabled')
     })
-}
+    }
+    const entryMealBtn = document.getElementById('entryBtn')
+    entryMealBtn.addEventListener("click", renderMeal)
 }
 
 const inicializaDatos = () => {
@@ -100,6 +176,9 @@ const inicializaDatos = () => {
                  
         })
     })
+
+    
+    
 }
 
 const renderApp = () => {
@@ -120,7 +199,7 @@ const renderOrders = () => {
     inicializaDatos()
 
 }
-// ***************UNDER CONSTRUCTION *****************************************
+
 const renderRegister = () =>{
     // console.log('funcionando')
     
@@ -174,29 +253,12 @@ const renderRegister = () =>{
         })
         alert('Registro exitoso, Inicia sesion con tus nuevas creadenciales')
         renderLogin()
-    //     .then(token => {
-    //         return fetch('http://localhost:3000/api/auth/me',{
-    //             method:'GET',
-    //             headers: {
-    //             'Content-Type': 'application/json',
-    //             authorization: token,
-    //         },  
-    //     })
-        
-    // })
+
 }) 
 }
 }
     
     
-
-
-
-
-
-// ***************************************************************************
-
-
 const renderLogin = () =>{
     
     const loginView = document.getElementById('login-view')

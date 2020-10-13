@@ -11,7 +11,6 @@ const users = require('../models/users.js')
 const isAuthenticated = (req,res,next) => {
     const token = req.headers.authorization
     if (!token){
-        alert('Debe hacer login')
         return res.sendStatus(403)
     }
     jwt.verify(token, 'mi-secreto', (err, decoded) => {
