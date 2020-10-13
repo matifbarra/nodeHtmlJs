@@ -67,12 +67,12 @@ const renderMeal = () => {
         })
         .then(x => console.log(x))
             // .then(user => console.log(user))
-            alert('Introduzca sus credenciales para crear el nuevo registro')
-            renderLogin()            
-            
-        //.then(x => console.log(x))
+            alert('Registro ingresado con exito, oprima ok para continuar...')
             //renderLogin()
-            //renderOrders()    
+            const ordersView = document.getElementById('orders-view')
+            document.getElementById('app').innerHTML = ordersView.innerHTML            
+            inicializaFormulario()
+            inicializaDatos()
         
     })
         
