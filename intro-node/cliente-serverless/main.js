@@ -109,7 +109,7 @@ const renderApp = () => {
         console.log('token:' + token)
         return renderOrders()            
     }
-    
+    alert('usuario no existe')
     renderLogin()
 }
 
@@ -130,44 +130,69 @@ const renderRegister = () =>{
     
     
             
-    // registerForm.onsubmit = (e) => {
+    registerForm.onsubmit = (e) => {
        
-    //     e.preventDefault() //los onsubmit reciben un evento y debemos prevenirlos para no hacer refresh
-    //     const nombre = document.getElementById('nombre').value
-    //     const direccion = document.getElementById('direccion').value
-    //     const email = document.getElementById('email').value
-    //     const password = document.getElementById('password').value
+        e.preventDefault() //los onsubmit reciben un evento y debemos prevenirlos para no hacer refresh
+        const nombre = document.getElementById('nombre').value
+        const direccion = document.getElementById('direccion').value
+        const email = document.getElementById('email').value
+        const password = document.getElementById('password').value
         
-        // fetch('http://localhost:3000/api/auth/login', {
-        //         method:'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({ email, password })
-               
-        //     }).then( x => x.json())
-        //     .then(response => {
-        //         localStorage.setItem('token', response.token)
-        //         ruta = 'orders'
-        //         return response.token
-                
-        //     })
-        //     .then(token => {
-        //         return fetch('http://localhost:3000/api/auth/me',{
-        //             method:'GET',
-        //             headers: {
-        //             'Content-Type': 'application/json',
-        //             authorization: token,
-        //         },
-        //     })
-        // })
-        // .then(x => x.json())
-        // .then(fetchedUser => {
-        //     localStorage.setItem('user', JSON.stringify(fetchedUser) )
-        //     user = fetchedUser
-        //     renderOrders()
-        // }) 
-    }
+        
+        const user = {
+                nombre: nombre,
+                direccion: direccion,
+                email: email,
+                password: password,
+            }
+
+            console.log(user.nombre)
+        fetch('http://localhost:3000/api/users/register',{ //33
+            method:'POST',
+            headers:{
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user)
+    })
+    .then(x => {
+        console.log(x)
+        fetch('http://localhost:3000/api/auth/login', {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password })
+            // body: JSON.stringify({ email: email, password: password }) Esto es lo mismo que lo de 
+            //arriba pero como los nombres de la variables es el mismo se puede acortar  
+        })
+        .then( x => x.json())
+        .then(response => {
+            localStorage.setItem('token', response.token)
+            ruta = 'orders'
+            return response.token
+            
+        })
+        alert('Registro exitoso')
+        renderLogin()
+    //     .then(token => {
+    //         return fetch('http://localhost:3000/api/auth/me',{
+    //             method:'GET',
+    //             headers: {
+    //             'Content-Type': 'application/json',
+    //             authorization: token,
+    //         },  
+    //     })
+        
+    // })
+}) 
+}
+}
+    
+    
+
+
+
+
 
 // ***************************************************************************
 
