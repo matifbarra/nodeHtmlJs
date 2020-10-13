@@ -15,6 +15,8 @@ body{
 }
 
 #meals {
+    display: flex;
+    flex-direction: column;
     margin-left:0px;
 }
 #orders {
@@ -26,16 +28,17 @@ body ul{
     list-style-type: none;
 }
 
-#btn, #entry-btn{
+#btn {
     width: auto;
     text-align: center;
     background-color: #17495e ;
     color:#fff;
     padding: 10px 15px;
     border: solid 0px;
-    border-radius: 5px;
-    margin: 15px; 
+    margin: 15px;
+    margin-right: 0px; 
     margin-left: 38px;
+    cursor: pointer;
 }
 
 #btn:disabled{
@@ -90,9 +93,20 @@ form input{
     background-color: #007598;
     color: #fff;
     border: none;
-    padding: 10px 15px;
-    /* border-radius: 4px; */
+    padding:  15px;
     margin-top: 15px;
+    cursor: pointer;
+}
+
+.entryBtn {
+    width: auto;
+    text-align: center;
+    background-color: orange ;
+    color:#fff;
+    padding: 10px 15px;
+    border: solid 0px;
+    margin-top: 15px; 
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -124,4 +138,12 @@ form input{
     background-color: #eee;
     border: none;
     color: #555;   
+}
+
+#order, #entry {
+    width: calc(100% - 500px);
+}
+
+#buttonsForm{
+    display: flex;
 }
