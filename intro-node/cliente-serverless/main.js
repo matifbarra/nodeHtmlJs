@@ -28,12 +28,86 @@ const renderItem = (item) =>{ //6
     return elemento;
 }
 
+
 // Render de las Orders
 const renderOrder = (order, meals) => { //25
     const meal = meals.find(meal => meal._id === order.meal_id)//26
     const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)//27
     return element;    
 }
+
+// ***************UNDER CONSTRUCTION *****************************************
+// const renderMeals = () => {
+
+//     // console.log('adentro de renderMeals')
+
+//     const mealsView = document.getElementById('meals-view')
+//     document.getElementById('app').innerHTML = mealsView.innerHTML
+//     const mealForm = document.getElementById('meal-form')
+//     const entryForm = document.getElementById('meals-view')
+//     const entryName = document.getElementById('nombre')
+//     const entryDesc = document.getElementById('desc')
+//     const sendMeal = document.getElementById('sendMeal')
+    
+//     sendMeal.addEventListener("click", () => {
+
+//         const nameFood = entryName.value
+//         console.log(nameFood)   
+//         const descFood = entryDesc.value
+//         console.log(descFood)
+//         infoFood ={
+//             name: nameFood,
+//             desc: descFood,
+//         }
+//         fetch('http://localhost:3000/api/meals', {
+//             method:'POST',
+//             headers:{
+//             'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(infoFood)
+//         })
+//         .then(x => console.log(x))
+        
+// renderApp()
+        // .then(respuesta => {
+        //     console.log(respuesta)
+        //     const mealsList = document.getElementById('meals-list')
+        //     document.getElementById('app').innerHTML = mealsList.innerHTML
+
+        // })
+//     })
+// }
+    
+
+
+
+// *************** Entry Food  ***********************************
+    // const entryForm = document.getElementById('entryForm');
+    
+    //     const entryText = document.getElementById('entryText');
+    //     const entryDesc = document.getElementById('entryDesc');
+
+    //     const entryBtn = document.getElementById('entry-btn');
+    //     entryBtn.addEventListener('click', () =>{
+    //         const nameFood = entryText.value;   
+    //         const descFood = entryDesc.value;
+
+    //         infoFood ={
+    //            name: nameFood,
+    //            desc: descFood,
+    //         }
+            
+    //         fetch('http://localhost:3000/api/meals',{
+    //             method:'POST',
+    //             headers:{
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(infoFood)
+    //         })
+    //         .then(x => console.log(x))
+    //     })
+// ******************************************************************
+
 
 const inicializaFormulario = () => {
     const token = localStorage.getItem('token') //agregado para resolver problema   
@@ -71,7 +145,13 @@ const inicializaFormulario = () => {
         orderList.appendChild(renderedOrder);
         btn.removeAttribute('disabled')
     })
+    
+
 }
+const entryBtnMeals = document.getElementById('entryBtn')
+// entryBtnMeals.addEventListener("click", renderMeals)
+
+
 }
 
 const inicializaDatos = () => {
@@ -102,6 +182,7 @@ const inicializaDatos = () => {
     })
 }
 
+
 const renderApp = () => {
     const token = localStorage.getItem('token')
     if (token){
@@ -120,7 +201,7 @@ const renderOrders = () => {
     inicializaDatos()
 
 }
-// ***************UNDER CONSTRUCTION *****************************************
+
 const renderRegister = () =>{
     // console.log('funcionando')
     
@@ -174,28 +255,11 @@ const renderRegister = () =>{
         })
         alert('Registro exitoso, Inicia sesion con tus nuevas creadenciales')
         renderLogin()
-    //     .then(token => {
-    //         return fetch('http://localhost:3000/api/auth/me',{
-    //             method:'GET',
-    //             headers: {
-    //             'Content-Type': 'application/json',
-    //             authorization: token,
-    //         },  
-    //     })
-        
-    // })
-}) 
+    }) 
 }
 }
     
     
-
-
-
-
-
-// ***************************************************************************
-
 
 const renderLogin = () =>{
     

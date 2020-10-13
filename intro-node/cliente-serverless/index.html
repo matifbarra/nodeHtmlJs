@@ -48,13 +48,12 @@
                     <button id="btn" disabled>Enviar</button>
                     
                 </form>
-                <form id="entry">
+                <div id="entry">
                     <button class="entryBtn" id="entryBtn">Nuevo plato</button>
-                </form>
+                </div>
             </div>
             
         </div>
-        
         
         <div id="orders">
             <ul id="order-list">
@@ -90,6 +89,25 @@
                
             </form>
             
+        </div>
+    </template>
+    
+    <template id="meals-view">
+        <div class="form-main">
+            <p id="form-tittle">Introduzca nuevo plato</p>
+            <form action="" class="meal-form" id="meal-form">
+                <div>
+                    <p> Introduzca nombre del plato</p>
+                    <input type="text" placeholder="nombre del plato" id= "nombre">
+                </div>
+                <div>
+                    <p> Introduzca la descripcion</p>
+                    <input type="text" placeholder="descripcion del plato" id= "desc">
+                </div>
+                <div>
+                   <button class="btn block" id="sendMeal">Enviar</button>
+                </div>
+            </form>
         </div>
     </template>
 </body>
