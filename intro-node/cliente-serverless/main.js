@@ -66,38 +66,19 @@ const renderMeal = () => {
             body: JSON.stringify(infoMeal)
         })
         .then(x => console.log(x))
-        renderLogin()
+            // .then(user => console.log(user))
+            alert('Introduzca sus credenciales para crear el nuevo registro')
+            renderLogin()            
+            
+        //.then(x => console.log(x))
+            //renderLogin()
+            //renderOrders()    
+        
     })
         
-
 }
-    //     const nameFood = entryText.value
-    //     const descFood = entryDesc.value
-        
-    //     const infoMeal={
-    //     name: nameFood,
-    //     desc: descFood,
-    //     }
-
-    //     fetch('http://localhost:3000/api/meals',{
-    //         method:'POST',
-    //         headers:{
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(infoMeal)
-    //     })
-    //     .then(x => console.log(x))
-    // })
-
-    
-
-
-
-
-
-
-
-    
+   
+ 
         // const nameMeal = document.getElementById('nameMeal')
         // console.log(nameMeal)
         // const descMeal = document.getElementById('descMeal')
