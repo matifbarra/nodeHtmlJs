@@ -75,13 +75,26 @@ const renderMeal = () => {
     })
         
 }
-   
+// Under construction *********************************************
+const logOut = () =>{
+    console.log('queriendo salir')
+    const token = localStorage.getItem('token')
+    console.log('token: ', token)
+    const userToLogOut = localStorage.getItem('user')
+    console.log('User que quiere salir: ', userToLogOut)
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    alert('Confirme que desea salir...')
+    renderLogin()
+}
+
+// Under construction *********************************************
 
 const renderData = () => {
     
     console.log('dentro de renderData')
     const inicializaFormulario = () => {
-        const token = localStorage.getItem('token') //agregado para resolver problema   
+        const token = localStorage.getItem('token')   
         const orderForm = document.getElementById('order');//28
         orderForm.onsubmit = (e) =>{ //29
         btn.setAttribute('disabled', true)
@@ -120,8 +133,7 @@ const renderData = () => {
         const entryMealBtn = document.getElementById('entryBtn')
         entryMealBtn.addEventListener("click", renderMeal)
     }
-    
-    
+
     
     const inicializaDatos = () => {
         // fetch de GET de las meals
@@ -153,6 +165,11 @@ const renderData = () => {
     //lamando las funciones internas
     inicializaFormulario()
     inicializaDatos()
+
+    //log out button
+    const logOutBtn = document.getElementById('logOutBtn')
+    logOutBtn.addEventListener("click",logOut)
+
 }
 
 const renderApp = () => {
