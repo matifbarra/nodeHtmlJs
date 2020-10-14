@@ -35,12 +35,9 @@ const renderOrder = (order, meals) => { //25
     const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)//27
     return element;    
 }
-// ***************UNDER CONSTRUCTION *****************************************
 
 const renderMeal = () => {
     console.log('nuevamente vamos')
-    // const nameMeal = document.getElementById('name-meal')
-    // const descMeal = document.getElementById('desc-meal')
     const mealsView = document.getElementById('meals-view');
     document.getElementById('app').innerHTML = mealsView.innerHTML
     const sendMealBtn =  document.getElementById('send-meal')
@@ -79,38 +76,6 @@ const renderMeal = () => {
         
 }
    
- 
-        // const nameMeal = document.getElementById('nameMeal')
-        // console.log(nameMeal)
-        // const descMeal = document.getElementById('descMeal')
-        // console.log(nameMeal)
-
-    //     const entryBtn = document.getElementById('entry-btn');
-    //     entryBtn.addEventListener('click', () =>{
-    //         const nameFood = entryText.value;   
-    //         const descFood = entryDesc.value;
-
-    //         infoFood ={
-    //            name: nameFood,
-    //            desc: descFood,
-    //         }
-            
-    //         fetch('http://localhost:3000/api/meals',{
-    //             method:'POST',
-    //             headers:{
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(infoFood)
-    //         })
-    //         .then(x => console.log(x))
-    //     })
-
-
-
-
-// ***************************************************************************
-
-
 
 const renderData = () => {
     
