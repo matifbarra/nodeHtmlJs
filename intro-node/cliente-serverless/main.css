@@ -29,15 +29,15 @@ body ul{
 }
 
 #btn {
-    width: auto;
+    width: 150px;
     text-align: center;
     background-color: #17495e ;
     color:#fff;
     padding: 10px 15px;
     border: solid 0px;
     margin: 15px;
-    margin-right: 0px; 
-    margin-left: 38px;
+    margin-right: 10px; 
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -99,9 +99,21 @@ form input{
 }
 
 .entryBtn {
-    width: auto;
+    width: 150px;
     text-align: center;
     background-color: orange ;
+    color:#fff;
+    padding: 10px 15px;
+    border: solid 0px;
+    margin-top: 15px; 
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#logOutBtn{
+    width: 150px;
+    text-align: center;
+    background-color: #000000 ;
     color:#fff;
     padding: 10px 15px;
     border: solid 0px;
@@ -140,10 +152,14 @@ form input{
     color: #555;   
 }
 
-#order, #entry {
-    width: calc(100% - 500px);
+#order {
+    width: 200px;
 }
 
+#entry{
+    width:20px;
+}
 #buttonsForm{
     display: flex;
+    justify-content: space-between;
 }
