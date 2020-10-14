@@ -71,8 +71,9 @@ const renderMeal = () => {
             //renderLogin()
             const ordersView = document.getElementById('orders-view')
             document.getElementById('app').innerHTML = ordersView.innerHTML            
-            inicializaFormulario()
-            inicializaDatos()
+            renderData()
+            //inicializaFormulario()
+            //inicializaDatos()
         
     })
         
@@ -109,76 +110,84 @@ const renderMeal = () => {
 
 // ***************************************************************************
 
-const inicializaFormulario = () => {
-    const token = localStorage.getItem('token') //agregado para resolver problema   
-    const orderForm = document.getElementById('order');//28
-    orderForm.onsubmit = (e) =>{ //29
-    btn.setAttribute('disabled', true)
-    e.preventDefault(); 
-   
-    const mealId = document.getElementById('meals-id-btn')//30
-    mealIdValue = mealId.value; 
-    if (!mealIdValue){ //31
-        alert('Seleccione una opcion de comida');
-        btn.removeAttribute('disabled')
-        return;
-    }
-    const order = { //32
-        meal_id: mealIdValue,
-        user_id: user._id,
-    }
-// fetch de Post de orders
-    fetch('http://localhost:3000/api/orders',{ //33
-        method:'POST',
-        headers:{
-            'Content-Type': 'application/json',
-            authorization: token,
-        },
-        body: JSON.stringify(order)
-    })
-    .then(x => x.json())
-    .then(respuesta => {
-        console.log(respuesta);
-        console.log(mealState);
-        const renderedOrder = renderOrder(respuesta, mealState);//34
-        const orderList = document.getElementById('order-list');//35
-        orderList.appendChild(renderedOrder);
-        btn.removeAttribute('disabled')
-    })
-    }
-    const entryMealBtn = document.getElementById('entryBtn')
-    entryMealBtn.addEventListener("click", renderMeal)
-}
 
-const inicializaDatos = () => {
-    // fetch de GET de las meals
-    fetch('http://localhost:3000/api/meals') //1
-    .then(response => response.json()) //2
-    .then(data => {
-        mealState = data;
-        const mealsList = document.getElementById('meals-list'); //3
-        const btn = document.getElementById('btn'); //4
-        const listItems = data.map(renderItem); //5 
-        mealsList.removeChild(mealsList.firstElementChild);//12
-        listItems.forEach(element => { //13
-            mealsList.appendChild(element); //14
-        });
-        btn.removeAttribute('disabled'); //15
-        
-        // fetch de GET de orders
-        fetch('http://localhost:3000/api/orders')//20
-        .then(response => response.json())
-        .then(ordersData => {
-            const orderList = document.getElementById('order-list');//21
-            const listOrders = ordersData.map(orderData => renderOrder(orderData, data));//22
-            orderList.removeChild(orderList.firstElementChild);//23
-            listOrders.forEach(element => orderList.appendChild(element)); //24
-                 
+
+const renderData = () => {
+    
+    console.log('dentro de renderData')
+    const inicializaFormulario = () => {
+        const token = localStorage.getItem('token') //agregado para resolver problema   
+        const orderForm = document.getElementById('order');//28
+        orderForm.onsubmit = (e) =>{ //29
+        btn.setAttribute('disabled', true)
+        e.preventDefault(); 
+       
+        const mealId = document.getElementById('meals-id-btn')//30
+        mealIdValue = mealId.value; 
+        if (!mealIdValue){ //31
+            alert('Seleccione una opcion de comida');
+            btn.removeAttribute('disabled')
+            return;
+        }
+        const order = { //32
+            meal_id: mealIdValue,
+            user_id: user._id,
+        }
+    // fetch de Post de orders
+        fetch('http://localhost:3000/api/orders',{ //33
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                authorization: token,
+            },
+            body: JSON.stringify(order)
         })
-    })
-
+        .then(x => x.json())
+        .then(respuesta => {
+            console.log(respuesta);
+            console.log(mealState);
+            const renderedOrder = renderOrder(respuesta, mealState);//34
+            const orderList = document.getElementById('order-list');//35
+            orderList.appendChild(renderedOrder);
+            btn.removeAttribute('disabled')
+        })
+        }
+        const entryMealBtn = document.getElementById('entryBtn')
+        entryMealBtn.addEventListener("click", renderMeal)
+    }
     
     
+    
+    const inicializaDatos = () => {
+        // fetch de GET de las meals
+        fetch('http://localhost:3000/api/meals') //1
+        .then(response => response.json()) //2
+        .then(data => {
+            mealState = data;
+            const mealsList = document.getElementById('meals-list'); //3
+            const btn = document.getElementById('btn'); //4
+            const listItems = data.map(renderItem); //5 
+            mealsList.removeChild(mealsList.firstElementChild);//12
+            listItems.forEach(element => { //13
+                mealsList.appendChild(element); //14
+            });
+            btn.removeAttribute('disabled'); //15
+            
+            // fetch de GET de orders
+            fetch('http://localhost:3000/api/orders')//20
+            .then(response => response.json())
+            .then(ordersData => {
+                const orderList = document.getElementById('order-list');//21
+                const listOrders = ordersData.map(orderData => renderOrder(orderData, data));//22
+                orderList.removeChild(orderList.firstElementChild);//23
+                listOrders.forEach(element => orderList.appendChild(element)); //24
+                     
+            })
+        })
+    }
+    //lamando las funciones internas
+    inicializaFormulario()
+    inicializaDatos()
 }
 
 const renderApp = () => {
@@ -195,8 +204,9 @@ const renderApp = () => {
 const renderOrders = () => {
     const ordersView = document.getElementById('orders-view')
     document.getElementById('app').innerHTML = ordersView.innerHTML
-    inicializaFormulario()
-    inicializaDatos()
+    renderData()
+    //inicializaFormulario()
+    //inicializaDatos()
 
 }
 
@@ -429,4 +439,71 @@ window.onload = () => {
 // ********************************************************************************
 
 
+// const inicializaFormulario = () => {
+//     const token = localStorage.getItem('token') //agregado para resolver problema   
+//     const orderForm = document.getElementById('order');//28
+//     orderForm.onsubmit = (e) =>{ //29
+//     btn.setAttribute('disabled', true)
+//     e.preventDefault(); 
+   
+//     const mealId = document.getElementById('meals-id-btn')//30
+//     mealIdValue = mealId.value; 
+//     if (!mealIdValue){ //31
+//         alert('Seleccione una opcion de comida');
+//         btn.removeAttribute('disabled')
+//         return;
+//     }
+//     const order = { //32
+//         meal_id: mealIdValue,
+//         user_id: user._id,
+//     }
+// // fetch de Post de orders
+//     fetch('http://localhost:3000/api/orders',{ //33
+//         method:'POST',
+//         headers:{
+//             'Content-Type': 'application/json',
+//             authorization: token,
+//         },
+//         body: JSON.stringify(order)
+//     })
+//     .then(x => x.json())
+//     .then(respuesta => {
+//         console.log(respuesta);
+//         console.log(mealState);
+//         const renderedOrder = renderOrder(respuesta, mealState);//34
+//         const orderList = document.getElementById('order-list');//35
+//         orderList.appendChild(renderedOrder);
+//         btn.removeAttribute('disabled')
+//     })
+//     }
+//     const entryMealBtn = document.getElementById('entryBtn')
+//     entryMealBtn.addEventListener("click", renderMeal)
+// }
 
+// const inicializaDatos = () => {
+//     // fetch de GET de las meals
+//     fetch('http://localhost:3000/api/meals') //1
+//     .then(response => response.json()) //2
+//     .then(data => {
+//         mealState = data;
+//         const mealsList = document.getElementById('meals-list'); //3
+//         const btn = document.getElementById('btn'); //4
+//         const listItems = data.map(renderItem); //5 
+//         mealsList.removeChild(mealsList.firstElementChild);//12
+//         listItems.forEach(element => { //13
+//             mealsList.appendChild(element); //14
+//         });
+//         btn.removeAttribute('disabled'); //15
+        
+//         // fetch de GET de orders
+//         fetch('http://localhost:3000/api/orders')//20
+//         .then(response => response.json())
+//         .then(ordersData => {
+//             const orderList = document.getElementById('order-list');//21
+//             const listOrders = ordersData.map(orderData => renderOrder(orderData, data));//22
+//             orderList.removeChild(orderList.firstElementChild);//23
+//             listOrders.forEach(element => orderList.appendChild(element)); //24
+                 
+//         })
+//     })
+// }
