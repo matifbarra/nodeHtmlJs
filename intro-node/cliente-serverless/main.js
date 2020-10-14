@@ -67,7 +67,7 @@ const renderMeal = () => {
         })
         .then(x => console.log(x))
             // .then(user => console.log(user))
-            alert('Registro ingresado con exito, oprima ok para continuar...')
+            alert('Tienes un nuevo plato en el menú, oprima ok para continuar...')
             //renderLogin()
             const ordersView = document.getElementById('orders-view')
             document.getElementById('app').innerHTML = ordersView.innerHTML            
