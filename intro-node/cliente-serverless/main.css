@@ -109,6 +109,17 @@ form input{
     margin-left: 10px;
     cursor: pointer;
 }
+#deleteBtn {
+    width: 150px;
+    text-align: center;
+    background-color: red ;
+    color:#fff;
+    padding: 10px 15px;
+    border: solid 0px;
+    margin-top: 15px; 
+    margin-left: 0px;
+    cursor: pointer;
+}
 
 #logOutBtn{
     width: 150px;
@@ -157,7 +168,7 @@ form input{
 }
 
 #entry{
-    width:20px;
+    width:110px;
 }
 #buttonsForm{
     display: flex;
