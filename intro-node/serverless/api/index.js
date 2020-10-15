@@ -7,6 +7,7 @@ const meals = require('./routes/meals');
 const orders = require('./routes/orders');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
+const backup_orders = require('./routes/backup_orders')
 
 const app = express();
 app.use(bodyParser.json());
@@ -21,6 +22,8 @@ app.use('/api/meals', meals);
 app.use('/api/orders', orders);
 app.use('/api/auth', auth);
 app.use('/api/users', users);
+app.use('/api/backup', backup_orders);
+
 // exporting app to others modules
 module.exports = app;
 

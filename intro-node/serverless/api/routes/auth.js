@@ -37,8 +37,8 @@ router.post('/login', (req,res) =>{
 
 
 router.get('/me', isAuthenticated, (req,res) => {
-    const { _id, email} = req.user
-    res.send({ _id, email})
+    const { _id, email, nombre} = req.user
+    res.send({ _id, email, nombre})
 })
 
 module.exports = router;

@@ -2,6 +2,9 @@ let mealState = [];
 let ruta = 'login' 
 //login,register o 
 let user = {}
+let prep
+let nombreMeal = String
+
 
 const stringToHtml = (s) => { //8
 
@@ -26,6 +29,13 @@ const renderItem = (item) =>{ //6
     })
     
     return elemento;
+}
+//Preparar el backup
+const prepBackup = (order,meals) => {
+    const meal = meals.find(meal => meal._id === order.meal_id)
+    // const nameUser = users.find(name => order.user_id === users._id)
+    // console.log(nameUser)
+    return meal;
 }
 
 // Render de las Orders
@@ -110,7 +120,7 @@ const renderData = () => {
             meal_id: mealIdValue,
             user_id: user._id,
         }
-    // fetch de Post de orders
+    // fetch para hacer Post de ordenes
         fetch('http://localhost:3000/api/orders',{ //33
             method:'POST',
             headers:{
@@ -121,18 +131,43 @@ const renderData = () => {
         })
         .then(x => x.json())
         .then(respuesta => {
-            console.log(respuesta);
-            console.log(mealState);
             const renderedOrder = renderOrder(respuesta, mealState);//34
+            prep = prepBackup(respuesta, mealState)
+            console.log(prep)
+            console.log(prep.name)
+            nombreMeal = prep.name
+            console.log(nombreMeal)
             const orderList = document.getElementById('order-list');//35
             orderList.appendChild(renderedOrder);
             btn.removeAttribute('disabled')
+        //  UNDER CONSTRUCTION ************************************************
+             const bOrder = { //32
+                meal_id: mealIdValue,
+                user_id: user._id,
+                meal_name: nombreMeal
+            }
+
+            fetch('http://localhost:3000/api/backup',{ //33
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                authorization: token,
+            },
+            body: JSON.stringify(bOrder)
         })
-        }
+        .then(x => x.json())
+        .then(respuesta => {
+            console.log('se guardo en backup');
+        })
+        //  UNDER CONSTRUCTION ************************************************
+    
+    })
         const entryMealBtn = document.getElementById('entryBtn')
         entryMealBtn.addEventListener("click", renderMeal)
     }
+}
 
+    
     
     const inicializaDatos = () => {
         // fetch de GET de las meals
@@ -168,8 +203,8 @@ const renderData = () => {
     //log out button
     const logOutBtn = document.getElementById('logOutBtn')
     logOutBtn.addEventListener("click",logOut)
-
 }
+
 
 const renderApp = () => {
     const token = localStorage.getItem('token')
