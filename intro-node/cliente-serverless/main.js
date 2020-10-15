@@ -1,9 +1,17 @@
-let mealState = [];
+let mealState = []
+let userState = []
 let ruta = 'login' 
 //login,register o 
 let user = {}
 let prep
 let nombreMeal = String
+let nombreUser = String
+
+// const dataUsers = () => {
+//     fetch('http://localhost:3000/api/users') //1
+//     .then(response => response.json()) //2
+//     .then(data => data)
+// }
 
 
 const stringToHtml = (s) => { //8
@@ -140,13 +148,27 @@ const renderData = () => {
             const orderList = document.getElementById('order-list');//35
             orderList.appendChild(renderedOrder);
             btn.removeAttribute('disabled')
-        //  UNDER CONSTRUCTION ************************************************
-             const bOrder = { //32
+
+            // ***************Under Construction *********************************
+            fetch('http://localhost:3000/api/users') //1
+            .then(response => response.json()) //2
+            .then(dataUser => {
+            userState = dataUser
+            const user = userState.find(name => name._id === order.user_id ) 
+            
+            // const renderOrder = (order, meals) => { //25
+            //     const meal = meals.find(meal => meal._id === order.meal_id)//26
+            
+            console.log(user.nombre)
+            nombreUser = user.nombre
+            console.log(user.nombre)
+            
+            const bOrder = { //32
                 meal_id: mealIdValue,
                 user_id: user._id,
-                meal_name: nombreMeal
+                meal_name: nombreMeal,
+                user_name: nombreUser
             }
-
             fetch('http://localhost:3000/api/backup',{ //33
             method:'POST',
             headers:{
@@ -159,16 +181,13 @@ const renderData = () => {
         .then(respuesta => {
             console.log('se guardo en backup');
         })
-        //  UNDER CONSTRUCTION ************************************************
-    
     })
+})
         const entryMealBtn = document.getElementById('entryBtn')
         entryMealBtn.addEventListener("click", renderMeal)
     }
 }
 
-    
-    
     const inicializaDatos = () => {
         // fetch de GET de las meals
         fetch('http://localhost:3000/api/meals') //1
