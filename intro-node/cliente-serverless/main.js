@@ -12,7 +12,7 @@ const stringToHtml = (s) => { //8
 
 }
 
-// Render de los meals 
+// Renderiza el menu de platos de comida
 const renderItem = (item) =>{ //6
     const elemento = stringToHtml(`<li data-id="${item._id}">${item.name}</li>`)//7
     elemento.addEventListener('click',() =>{
@@ -75,7 +75,7 @@ const renderMeal = () => {
     })
         
 }
-// Under construction *********************************************
+// funcion para hacer Log Out *********************************************
 const logOut = () =>{
     console.log('queriendo salir')
     const token = localStorage.getItem('token')
@@ -88,11 +88,10 @@ const logOut = () =>{
     renderLogin()
 }
 
-// Under construction *********************************************
+//*********************************************
 
 const renderData = () => {
     
-    console.log('dentro de renderData')
     const inicializaFormulario = () => {
         const token = localStorage.getItem('token')   
         const orderForm = document.getElementById('order');//28
