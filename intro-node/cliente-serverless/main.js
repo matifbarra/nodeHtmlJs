@@ -55,7 +55,7 @@ const renderOrder = (order, meals) => { //25
 }
 
 const renderMeal = () => {
-    console.log('nuevamente vamos')
+    
     const mealsView = document.getElementById('meals-view');
     document.getElementById('app').innerHTML = mealsView.innerHTML
     const sendMealBtn =  document.getElementById('send-meal')
@@ -106,7 +106,18 @@ const logOut = () =>{
     renderLogin()
 }
 
-//*********************************************
+// **************UNDER CONSTRUCTION *******************************************
+const deleteMeal = () => {
+    console.log('aqui eliminaremos meals')
+}
+
+
+
+
+
+// **************UNDER CONSTRUCTION *******************************************
+
+
 
 const renderData = () => {
     
@@ -183,10 +194,18 @@ const renderData = () => {
         })
     })
 })
-        const entryMealBtn = document.getElementById('entryBtn')
-        entryMealBtn.addEventListener("click", renderMeal)
+       
+
+        
     }
+
+    const entryMealBtn = document.getElementById('entryBtn')
+    entryMealBtn.addEventListener("click", renderMeal)
+
+    const deleteMealBtn = document.getElementById('deleteBtn')
+    deleteMealBtn.addEventListener("click", deleteMeal)
 }
+
 
     const inicializaDatos = () => {
         // fetch de GET de las meals
