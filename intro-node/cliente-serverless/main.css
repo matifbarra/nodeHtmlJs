@@ -120,6 +120,9 @@ form input{
     margin-left: 0px;
     cursor: pointer;
 }
+#deleteBtn:disabled {
+    background-color: #ccc ;
+}
 
 #logOutBtn{
     width: 150px;

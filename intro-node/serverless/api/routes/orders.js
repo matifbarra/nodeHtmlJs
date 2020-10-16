@@ -33,7 +33,7 @@ router.put('/:id',isAuthenticated, (req,res) =>{
     .then(x => res.sendStatus(204));
 });
 
-router.delete('/:id',isAuthenticated, (req,res)=>{
+router.delete('/:id', isAuthenticated, hasRoles(['admin','user']),(req,res)=>{
     orders.findOneAndDelete(req.params.id,req.body)
     .then(x => res.sendStatus(204));
 })

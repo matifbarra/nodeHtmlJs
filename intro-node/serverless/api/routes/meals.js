@@ -1,4 +1,5 @@
 const express = require('express');
+const { isAuthenticated, hasRoles} = require('../auth');
 const meals = require('../models/meals');
 const router = express.Router();
 
@@ -34,12 +35,16 @@ router.put('/:id', (req,res) =>{
 //     .then(x => res.sendStatus(204).send(x))
 // });
 
-router.delete('/:id',(req,res)=>{
-    meals.findOneAndDelete(req.params.id)
+router.delete('/:id', isAuthenticated, hasRoles(['admin','user']),(req,res)=>{
+    meals.findByIdAndDelete(req.params.id)
     .exec()
     .then(() => res.sendStatus(204))
 });
-
+// router.delete('/:id',(req,res)=>{
+//     meals.findByIdAndRemove(req.params.id)
+//     .exec()
+//     .then(() => res.sendStatus(204))
+// });
 
 module.exports = router;
 

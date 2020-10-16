@@ -108,10 +108,34 @@ const logOut = () =>{
 
 // **************UNDER CONSTRUCTION *******************************************
 const deleteMeal = () => {
-    console.log('aqui eliminaremos meals')
+  
+    const token = localStorage.getItem('token')
+    console.log('token desde deleteMeal:',token)   
+    const orderForm = document.getElementById('order')
+    console.log('orderForm desde deleMeal:', orderForm )
+    const deleteMealBtn = document.getElementById('deleteBtn')
+    deleteMealBtn.setAttribute('disabled', true)
+
+    const mealId = document.getElementById('meals-id-btn')
+    const mealIdValue = mealId.value; 
+    if (!mealIdValue){ //31
+        alert('Seleccione una opcion de comida');
+        deleteMealBtn.removeAttribute('disabled')
+        return;
+    }
+    const meal_id = mealIdValue
+    console.log(meal_id)
+    // axios.delete("/persona_eliminar/" + id)
+    fetch('http://localhost:3000/api/meals/' + meal_id, { //fetch para eliminar meals
+            method:'delete',
+            headers:{
+                'Content-Type': 'application/json',
+                authorization: token,
+            },
+        })
+        // .then(x => x.json())
+        .then(respuesta => console.log(respuesta))
 }
-
-
 
 
 
@@ -248,10 +272,9 @@ const renderApp = () => {
     const token = localStorage.getItem('token')
     if (token){
         user = JSON.parse(localStorage.getItem('user')) 
-        console.log('token:' + token)
+      
         return renderOrders()            
     }
-    // alert('usuario no existe')
     renderLogin()
 }
 
@@ -259,14 +282,11 @@ const renderOrders = () => {
     const ordersView = document.getElementById('orders-view')
     document.getElementById('app').innerHTML = ordersView.innerHTML
     renderData()
-    //inicializaFormulario()
-    //inicializaDatos()
-
+   
 }
 
 const renderRegister = () =>{
-    // console.log('funcionando')
-    
+   
     const registerView = document.getElementById('register-view')
     document.getElementById('app').innerHTML = registerView.innerHTML
     const registerForm = document.getElementById('register-form')
