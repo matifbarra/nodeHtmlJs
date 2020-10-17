@@ -55,7 +55,7 @@ const renderOrder = (order, meals) => { //25
 }
 
 const renderMeal = () => {
-    
+    const token = localStorage.getItem('token')
     const mealsView = document.getElementById('meals-view');
     document.getElementById('app').innerHTML = mealsView.innerHTML
     const sendMealBtn =  document.getElementById('send-meal')
@@ -77,6 +77,7 @@ const renderMeal = () => {
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',
+                authorization: token,
             },
             body: JSON.stringify(infoMeal)
         })
@@ -133,12 +134,11 @@ const deleteMeal = () => {
                 authorization: token,
             },
         })
-        // .then(x => x.json())
-        .then(respuesta => console.log(respuesta))
+        .then(x => console.log(x))
+        alert('Se eliminó el plato correctamente, oprima ok para continuar...')
+        renderOrders()
+        
 }
-
-
-
 // **************UNDER CONSTRUCTION *******************************************
 
 
@@ -184,16 +184,13 @@ const renderData = () => {
             orderList.appendChild(renderedOrder);
             btn.removeAttribute('disabled')
 
-            // ***************Under Construction *********************************
+            // Fetch para traer la data de Usuarios de la BD
             fetch('http://localhost:3000/api/users') //1
             .then(response => response.json()) //2
             .then(dataUser => {
             userState = dataUser
             const user = userState.find(name => name._id === order.user_id ) 
-            
-            // const renderOrder = (order, meals) => { //25
-            //     const meal = meals.find(meal => meal._id === order.meal_id)//26
-            
+             
             console.log(user.nombre)
             nombreUser = user.nombre
             console.log(user.nombre)
@@ -204,6 +201,7 @@ const renderData = () => {
                 meal_name: nombreMeal,
                 user_name: nombreUser
             }
+            // Fetch para hacer el post de la orden en el modelo de Backup
             fetch('http://localhost:3000/api/backup',{ //33
             method:'POST',
             headers:{
@@ -218,10 +216,7 @@ const renderData = () => {
         })
     })
 })
-       
-
-        
-    }
+}
 
     const entryMealBtn = document.getElementById('entryBtn')
     entryMealBtn.addEventListener("click", renderMeal)

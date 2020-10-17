@@ -18,7 +18,7 @@ router.get('/:id', (req,res) =>{
 });
 
 // Para crear un elemento
-router.post('/', (req,res) =>{
+router.post('/', isAuthenticated, hasRoles(['admin','user']),(req,res) =>{
     meals.create(req.body)
     .then(x => res.status(201).send(x));
     
@@ -40,11 +40,7 @@ router.delete('/:id', isAuthenticated, hasRoles(['admin','user']),(req,res)=>{
     .exec()
     .then(() => res.sendStatus(204))
 });
-// router.delete('/:id',(req,res)=>{
-//     meals.findByIdAndRemove(req.params.id)
-//     .exec()
-//     .then(() => res.sendStatus(204))
-// });
+
 
 module.exports = router;
 
