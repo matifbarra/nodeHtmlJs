@@ -1,4 +1,5 @@
 let mealState = []
+let orderState = []
 let userState = []
 let ruta = 'login' 
 //login,register o 
@@ -45,11 +46,18 @@ const prepBackup = (order,meals) => {
     // console.log(nameUser)
     return meal;
 }
+// const prepDeleteOrders = (meals) => {
+//     console.log(meals)
+    // console.log(orders)
+    // const order = orders.find(order => meal._id === order.meal_id)
+    // const nameUser = users.find(name => order.user_id === users._id)
+    // console.log(nameUser)
+//     return meals;
+// }
 
 // Render de las Orders
 const renderOrder = (order, meals) => { //25
     const meal = meals.find(meal => meal._id === order.meal_id)//26
-    // console.log(meal)
     const element = stringToHtml(`<li data-id="${order._id}"> ${meal.name} - ${order.user_id}</li>`)//27
     return element;    
 }
@@ -106,8 +114,7 @@ const logOut = () =>{
     alert('Confirme que desea salir...')
     renderLogin()
 }
-
-// **************UNDER CONSTRUCTION *******************************************
+// *************** Upgrading *****************************************************
 const deleteMeal = () => {
   
     const token = localStorage.getItem('token')
@@ -134,14 +141,41 @@ const deleteMeal = () => {
                 authorization: token,
             },
         })
-        .then(x => console.log(x))
-        alert('Se eliminó el plato correctamente, oprima ok para continuar...')
-        renderOrders()
+        // .then(x => x.json())
+       .then(x => console.log(x))
+       .then(response => {
+        //Fetch para traer la data de las ordenes de la BD   
+        fetch('http://localhost:3000/api/orders') //1
+            .then(response => response.json()) //2
+            .then(dataOrder => {
+                console.log(dataOrder)
+            })
+           alert('Se procedera a eliminar la comida, oprima ok para continuar...')
+           renderOrders()
+        })
         
+       
+ 
+         
 }
-// **************UNDER CONSTRUCTION *******************************************
+    
+       
+        
+   
 
+         // Fetch para traer la data de Usuarios de la BD
+        //  fetch('http://localhost:3000/api/users') //1
+        //  .then(response => response.json()) //2
+        //  .then(dataUser => {
+        //  userState = dataUser
+        //  const user = userState.find(name => name._id === order.user_id ) 
+    
 
+   
+   
+        
+
+// *************** Upgrading *****************************************************
 
 const renderData = () => {
     
