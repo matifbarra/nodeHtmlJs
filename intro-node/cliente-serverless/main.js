@@ -148,17 +148,12 @@ const deleteMeal = () => {
         fetch('http://localhost:3000/api/orders') //1
             .then(response => response.json()) //2
             .then(dataOrder => {
-                console.log(dataOrder)
-            })
-           alert('Se procedera a eliminar la comida, oprima ok para continuar...')
-           renderOrders()
+                console.log(dataOrder[1].meal_id)
+                alert('Se procedera a eliminar la comida, oprima ok para continuar...')
+                renderOrders()
         })
-        
-       
- 
-         
-}
-    
+    })
+}    
        
         
    
