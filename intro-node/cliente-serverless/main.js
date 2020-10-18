@@ -52,17 +52,45 @@ const prepBackup = (order,meals) => {
 // const order = orders.find(order => meal._id === order.meal_id)
 // const nameUser = users.find(name => order.user_id === users._id)
 
-const prueba = (mealDeleated,mealOnOrder ) => {
-    
-    const meal_deleated = mealDeleated
+const prueba = (mealDeleted) => {
+    const token = localStorage.getItem('token')
+    const meal_deleated = mealDeleted
     console.log('comida que fue borrada: ', meal_deleated)
-    const mealOn_Order = mealOnOrder
-    console.log('comida que viene en la orden: ', mealOn_Order)
-
-    if (meal_deleated === mealOn_Order){
-        alert('Espera!!, Hay una orden que contiene esa comida que vas a eliminar')
+    
+    fetch('http://localhost:3000/api/orders') //1
+            .then(response => response.json()) //2
+            .then(r => {
+                const template = r.map(t => {
+                    console.log(t.meal_id)
+                    mealOn_Order = t.meal_id
+                    if (meal_deleated === mealOn_Order){
+                        const id_order = t._id
+                        alert('Espera!!, la orden de ID: ' + id_order + 'contiene esa comida, se eliminará')
+                        
+                        fetch('http://localhost:3000/api/orders/' + id_order, { //fetch para eliminar meals
+                        method:'delete',
+                        headers:{
+                            'Content-Type': 'application/json',
+                            authorization: token,
+                        },
+                    })
+                    .then(x => {
+                       console.log(x)
+                       alert('La orden de ID: ' + id_order + 'fue eliminada')
+                    })
+                }
+            })
+        })
+        .then(x => {
+            console.log('hey lo logre')
+            renderOrders()
+        })    
     }
-}
+    
+
+                
+
+
 
 // *************************** Under Construction ************************************
 
@@ -154,25 +182,16 @@ const deleteMeal = () => {
         })
         .then(x => {
            console.log(x)
-           //Fetch para traer la data de las ordenes de la BD
-           fetch('http://localhost:3000/api/orders') //1
-            .then(response => response.json()) //2
-            .then(r => {
-                alert('Se procedera a eliminar la comida, oprima ok para continuar...')
-                const template = r.map(t => {
-                    console.log(t.meal_id)
-                    prueba(meal_id,t.meal_id)
-                })
-                renderOrders()
-            })
-            
-       })
+           alert('Se procedera a eliminar la comida, oprima ok para continuar...')
+           prueba(meal_id)
            
-}
+        })
+            
+       }
+           
+
    
-       
-        
-   
+    
 
          // Fetch para traer la data de Usuarios de la BD
         //  fetch('http://localhost:3000/api/users') //1
@@ -180,11 +199,6 @@ const deleteMeal = () => {
         //  .then(dataUser => {
         //  userState = dataUser
         //  const user = userState.find(name => name._id === order.user_id ) 
-    
-
-   
-   
-        
 
 // *************** Upgrading *****************************************************
 

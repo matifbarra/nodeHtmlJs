@@ -34,9 +34,8 @@ router.put('/:id',isAuthenticated, (req,res) =>{
 });
 
 router.delete('/:id', isAuthenticated, hasRoles(['admin','user']),(req,res)=>{
-    orders.findOneAndDelete(req.params.id,req.body)
+    orders.findByIdAndDelete(req.params.id,req.body)
     .then(x => res.sendStatus(204));
 })
-
 
 module.exports = router;
