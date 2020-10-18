@@ -46,14 +46,25 @@ const prepBackup = (order,meals) => {
     // console.log(nameUser)
     return meal;
 }
-// const prepDeleteOrders = (meals) => {
-//     console.log(meals)
-    // console.log(orders)
-    // const order = orders.find(order => meal._id === order.meal_id)
-    // const nameUser = users.find(name => order.user_id === users._id)
-    // console.log(nameUser)
-//     return meals;
-// }
+
+// *************************** Under Construction ************************************
+
+// const order = orders.find(order => meal._id === order.meal_id)
+// const nameUser = users.find(name => order.user_id === users._id)
+
+const prueba = (mealDeleated,mealOnOrder ) => {
+    
+    const meal_deleated = mealDeleated
+    console.log('comida que fue borrada: ', meal_deleated)
+    const mealOn_Order = mealOnOrder
+    console.log('comida que viene en la orden: ', mealOn_Order)
+
+    if (meal_deleated === mealOn_Order){
+        alert('Espera!!, Hay una orden que contiene esa comida que vas a eliminar')
+    }
+}
+
+// *************************** Under Construction ************************************
 
 // Render de las Orders
 const renderOrder = (order, meals) => { //25
@@ -141,19 +152,24 @@ const deleteMeal = () => {
                 authorization: token,
             },
         })
-        // .then(x => x.json())
-       .then(x => console.log(x))
-       .then(response => {
-        //Fetch para traer la data de las ordenes de la BD   
-        fetch('http://localhost:3000/api/orders') //1
+        .then(x => {
+           console.log(x)
+           //Fetch para traer la data de las ordenes de la BD
+           fetch('http://localhost:3000/api/orders') //1
             .then(response => response.json()) //2
-            .then(dataOrder => {
-                console.log(dataOrder[1].meal_id)
+            .then(r => {
                 alert('Se procedera a eliminar la comida, oprima ok para continuar...')
+                const template = r.map(t => {
+                    console.log(t.meal_id)
+                    prueba(meal_id,t.meal_id)
+                })
                 renderOrders()
-        })
-    })
-}    
+            })
+            
+       })
+           
+}
+   
        
         
    
