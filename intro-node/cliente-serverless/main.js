@@ -8,13 +8,6 @@ let prep
 let nombreMeal = String
 let nombreUser = String
 
-// const dataUsers = () => {
-//     fetch('http://localhost:3000/api/users') //1
-//     .then(response => response.json()) //2
-//     .then(data => data)
-// }
-
-
 const stringToHtml = (s) => { //8
 
     const parser = new DOMParser();//9
@@ -49,14 +42,11 @@ const prepBackup = (order,meals) => {
 
 // *************************** Under Construction ************************************
 
-// const order = orders.find(order => meal._id === order.meal_id)
-// const nameUser = users.find(name => order.user_id === users._id)
-
-const prueba = (mealDeleted) => {
+const deleteMealAndOrder = (mealDeleted) => {
     const token = localStorage.getItem('token')
     const meal_deleated = mealDeleted
-    console.log('comida que fue borrada: ', meal_deleated)
-    
+    // console.log('comida que fue borrada: ', meal_deleated)
+    alert('The Meal will be deleted from the menu, if there are orders related with that meal they will be removed from database')
     fetch('http://localhost:3000/api/orders') //1
             .then(response => response.json()) //2
             .then(r => {
@@ -65,8 +55,6 @@ const prueba = (mealDeleted) => {
                     mealOn_Order = t.meal_id
                     if (meal_deleated === mealOn_Order){
                         const id_order = t._id
-                        alert('Espera!!, la orden de ID: ' + id_order + 'contiene esa comida, se eliminará')
-                        
                         fetch('http://localhost:3000/api/orders/' + id_order, { //fetch para eliminar meals
                         method:'delete',
                         headers:{
@@ -76,10 +64,11 @@ const prueba = (mealDeleted) => {
                     })
                     .then(x => {
                        console.log(x)
-                       alert('La orden de ID: ' + id_order + 'fue eliminada')
                     })
                 }
             })
+            alert('Las ordenes que contenian esa comida fueron eliminadas con exito')
+            alert('Orders that contained the meal were removed succesfully, thanks :)')
         })
         .then(x => {
             console.log('hey lo logre')
@@ -87,11 +76,6 @@ const prueba = (mealDeleted) => {
         })    
     }
     
-
-                
-
-
-
 // *************************** Under Construction ************************************
 
 // Render de las Orders
@@ -183,22 +167,12 @@ const deleteMeal = () => {
         .then(x => {
            console.log(x)
            alert('Se procedera a eliminar la comida, oprima ok para continuar...')
-           prueba(meal_id)
+           deleteMealAndOrder(meal_id)
            
         })
             
        }
            
-
-   
-    
-
-         // Fetch para traer la data de Usuarios de la BD
-        //  fetch('http://localhost:3000/api/users') //1
-        //  .then(response => response.json()) //2
-        //  .then(dataUser => {
-        //  userState = dataUser
-        //  const user = userState.find(name => name._id === order.user_id ) 
 
 // *************** Upgrading *****************************************************
 
