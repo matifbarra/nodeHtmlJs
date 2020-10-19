@@ -43,6 +43,7 @@ const prepBackup = (order,meals) => {
 // *************************** Under Construction ************************************
 
 const deleteMealAndOrder = (mealDeleted) => {
+    let flag = Boolean
     const token = localStorage.getItem('token')
     const meal_deleated = mealDeleted
     // console.log('comida que fue borrada: ', meal_deleated)
@@ -54,6 +55,7 @@ const deleteMealAndOrder = (mealDeleted) => {
                     console.log(t.meal_id)
                     mealOn_Order = t.meal_id
                     if (meal_deleated === mealOn_Order){
+                        flag = false
                         const id_order = t._id
                         fetch('http://localhost:3000/api/orders/' + id_order, { //fetch para eliminar meals
                         method:'delete',
@@ -65,9 +67,16 @@ const deleteMealAndOrder = (mealDeleted) => {
                     .then(x => {
                        console.log(x)
                     })
+                }else{
+                    flag = true
                 }
             })
-           alert('Orders were removed succesfully, thanks :)')
+            if (flag){
+                return alert('There are no orders related with the meal deleted :)')     
+            }else{
+                alert('Orders related were removed succesfully, thanks :)')
+            }
+          
         })
         .then(x => {
             console.log('hey lo logre')
