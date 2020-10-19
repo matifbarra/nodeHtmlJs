@@ -46,7 +46,7 @@ const deleteMealAndOrder = (mealDeleted) => {
     const token = localStorage.getItem('token')
     const meal_deleated = mealDeleted
     // console.log('comida que fue borrada: ', meal_deleated)
-    alert('The Meal will be deleted from the menu, if there are orders related with that meal they will be removed from database')
+    alert('Important: If there are orders related with that meal they will be removed from database')
     fetch('http://localhost:3000/api/orders') //1
             .then(response => response.json()) //2
             .then(r => {
@@ -67,8 +67,7 @@ const deleteMealAndOrder = (mealDeleted) => {
                     })
                 }
             })
-            alert('Las ordenes que contenian esa comida fueron eliminadas con exito')
-            alert('Orders that contained the meal were removed succesfully, thanks :)')
+           alert('Orders were removed succesfully, thanks :)')
         })
         .then(x => {
             console.log('hey lo logre')
@@ -86,6 +85,9 @@ const renderOrder = (order, meals) => { //25
 }
 
 const renderMeal = () => {
+    const entryMealBtn = document.getElementById('entryBtn')
+    entryMealBtn.setAttribute('disabled', true)
+    console.log('boton de add meal deshabilitado')
     const token = localStorage.getItem('token')
     const mealsView = document.getElementById('meals-view');
     document.getElementById('app').innerHTML = mealsView.innerHTML
@@ -114,14 +116,11 @@ const renderMeal = () => {
         })
         .then(x => console.log(x))
             // .then(user => console.log(user))
-            alert('Tienes un nuevo plato en el menú, oprima ok para continuar...')
+            alert('new meal added, click OK to continue...')
             //renderLogin()
             const ordersView = document.getElementById('orders-view')
             document.getElementById('app').innerHTML = ordersView.innerHTML            
-            renderData()
-            //inicializaFormulario()
-            //inicializaDatos()
-        
+            renderData()        
     })
         
 }
@@ -134,19 +133,19 @@ const logOut = () =>{
     console.log('User que quiere salir: ', userToLogOut)
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    alert('Confirme que desea salir...')
+    alert('Click OK to log out')
     renderLogin()
 }
 // *************** Upgrading *****************************************************
 const deleteMeal = () => {
-  
+    const deleteMealBtn = document.getElementById('deleteBtn')
+    deleteMealBtn.setAttribute('disabled', true)
+    console.log('delede Meal deshabilitado')
     const token = localStorage.getItem('token')
     console.log('token desde deleteMeal:',token)   
     const orderForm = document.getElementById('order')
     console.log('orderForm desde deleMeal:', orderForm )
-    const deleteMealBtn = document.getElementById('deleteBtn')
-    deleteMealBtn.setAttribute('disabled', true)
-
+    
     const mealId = document.getElementById('meals-id-btn')
     const mealIdValue = mealId.value; 
     if (!mealIdValue){ //31
@@ -166,7 +165,7 @@ const deleteMeal = () => {
         })
         .then(x => {
            console.log(x)
-           alert('Se procedera a eliminar la comida, oprima ok para continuar...')
+           alert('Meal will be deleted, Click OK to continue...')
            deleteMealAndOrder(meal_id)
            
         })
@@ -179,6 +178,7 @@ const deleteMeal = () => {
 const renderData = () => {
     
     const inicializaFormulario = () => {
+        
         const token = localStorage.getItem('token')   
         const orderForm = document.getElementById('order');//28
         orderForm.onsubmit = (e) =>{ //29
@@ -188,7 +188,7 @@ const renderData = () => {
         const mealId = document.getElementById('meals-id-btn')//30
         mealIdValue = mealId.value; 
         if (!mealIdValue){ //31
-            alert('Seleccione una opcion de comida');
+            alert('Please, choose an option');
             btn.removeAttribute('disabled')
             return;
         }
@@ -250,16 +250,19 @@ const renderData = () => {
     })
 })
 }
-
     const entryMealBtn = document.getElementById('entryBtn')
     entryMealBtn.addEventListener("click", renderMeal)
-
+    
+    
     const deleteMealBtn = document.getElementById('deleteBtn')
     deleteMealBtn.addEventListener("click", deleteMeal)
+    
 }
 
 
     const inicializaDatos = () => {
+        const entryMealBtn = document.getElementById('entryBtn')
+        const deleteMealBtn = document.getElementById('deleteBtn')
         // fetch de GET de las meals
         fetch('http://localhost:3000/api/meals') //1
         .then(response => response.json()) //2
@@ -273,6 +276,8 @@ const renderData = () => {
                 mealsList.appendChild(element); //14
             });
             btn.removeAttribute('disabled'); //15
+            entryMealBtn.removeAttribute('disabled', true)
+            deleteMealBtn.removeAttribute('disabled', true)
             
             // fetch de GET de orders
             fetch('http://localhost:3000/api/orders')//20
@@ -363,7 +368,7 @@ const renderRegister = () =>{
             return response.token
             
         })
-        alert('Registro exitoso, Inicia sesion con tus nuevas creadenciales')
+        alert('Now you have signed up, Log in with your new creadentials')
         renderLogin()
 
 }) 

@@ -124,6 +124,10 @@ form input{
     background-color: #ccc ;
 }
 
+#entryBtn:disabled {
+    background-color: #ccc ;
+}
+
 #logOutBtn{
     width: 150px;
     text-align: center;
