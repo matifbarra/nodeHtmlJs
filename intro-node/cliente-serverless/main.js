@@ -26,8 +26,7 @@ const renderItem = (item) =>{ //6
         elemento.classList.add('selected'); //18
         const mealsIdInput = document.getElementById('meals-id-btn');//19
         mealsIdInput.value = item._id;//19
-        console.log('mealsIdInput: ' + mealsIdInput)
-        console.log('elemento: ' + elemento);
+
     })
     
     return elemento;
@@ -52,7 +51,6 @@ const deleteMealAndOrder = (mealDeleted) => {
             .then(response => response.json()) //2
             .then(r => {
                 const template = r.map(t => {
-                    console.log(t.meal_id)
                     mealOn_Order = t.meal_id
                     if (meal_deleated === mealOn_Order){
                         flag = false
@@ -64,9 +62,7 @@ const deleteMealAndOrder = (mealDeleted) => {
                             authorization: token,
                         },
                     })
-                    .then(x => {
-                       console.log(x)
-                    })
+                    .then(x => x) 
                 }else{
                     flag = true
                 }
@@ -96,17 +92,15 @@ const renderOrder = (order, meals) => { //25
 const renderMeal = () => {
     const entryMealBtn = document.getElementById('entryBtn')
     entryMealBtn.setAttribute('disabled', true)
-    console.log('boton de add meal deshabilitado')
     const token = localStorage.getItem('token')
     const mealsView = document.getElementById('meals-view');
     document.getElementById('app').innerHTML = mealsView.innerHTML
     const sendMealBtn =  document.getElementById('send-meal')
-    console.log(sendMealBtn) 
+   
 
 
     // // action
     sendMealBtn.addEventListener("click" , () =>{
-        console.log('adentro de la funcion')
         const nameFood = entryText.value
         const descFood = entryDesc.value
         
@@ -123,23 +117,17 @@ const renderMeal = () => {
             },
             body: JSON.stringify(infoMeal)
         })
-        .then(x => console.log(x))
-            // .then(user => console.log(user))
-            alert('new meal added, click OK to continue...')
-            //renderLogin()
-            const ordersView = document.getElementById('orders-view')
-            document.getElementById('app').innerHTML = ordersView.innerHTML            
-            renderData()        
+        // .then(x => console.log(x))
+        .then(x => x)
+        alert('new meal added, click OK to continue...')
+        const ordersView = document.getElementById('orders-view')
+        document.getElementById('app').innerHTML = ordersView.innerHTML            
+        renderData()        
     })
         
 }
 // funcion para hacer Log Out *********************************************
 const logOut = () =>{
-    console.log('queriendo salir')
-    const token = localStorage.getItem('token')
-    console.log('token: ', token)
-    const userToLogOut = localStorage.getItem('user')
-    console.log('User que quiere salir: ', userToLogOut)
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     alert('Click OK to log out')
@@ -149,11 +137,11 @@ const logOut = () =>{
 const deleteMeal = () => {
     const deleteMealBtn = document.getElementById('deleteBtn')
     deleteMealBtn.setAttribute('disabled', true)
-    console.log('delede Meal deshabilitado')
+  
     const token = localStorage.getItem('token')
-    console.log('token desde deleteMeal:',token)   
+    
     const orderForm = document.getElementById('order')
-    console.log('orderForm desde deleMeal:', orderForm )
+ 
     
     const mealId = document.getElementById('meals-id-btn')
     const mealIdValue = mealId.value; 
@@ -163,7 +151,7 @@ const deleteMeal = () => {
         return;
     }
     const meal_id = mealIdValue
-    console.log(meal_id)
+ 
     // axios.delete("/persona_eliminar/" + id)
     fetch('http://localhost:3000/api/meals/' + meal_id, { //fetch para eliminar meals
             method:'delete',
@@ -173,7 +161,7 @@ const deleteMeal = () => {
             },
         })
         .then(x => {
-           console.log(x)
+ 
            alert('Meal will be deleted, Click OK to continue...')
            deleteMealAndOrder(meal_id)
            
@@ -218,10 +206,7 @@ const renderData = () => {
         .then(respuesta => {
             const renderedOrder = renderOrder(respuesta, mealState);//34
             prep = prepBackup(respuesta, mealState)
-            console.log(prep)
-            console.log(prep.name)
             nombreMeal = prep.name
-            console.log(nombreMeal)
             const orderList = document.getElementById('order-list');//35
             orderList.appendChild(renderedOrder);
             btn.removeAttribute('disabled')
@@ -232,17 +217,15 @@ const renderData = () => {
             .then(dataUser => {
             userState = dataUser
             const user = userState.find(name => name._id === order.user_id ) 
-             
-            console.log(user.nombre)
             nombreUser = user.nombre
-            console.log(user.nombre)
-            
+
             const bOrder = { //32
                 meal_id: mealIdValue,
                 user_id: user._id,
                 meal_name: nombreMeal,
                 user_name: nombreUser
             }
+            
             // Fetch para hacer el post de la orden en el modelo de Backup
             fetch('http://localhost:3000/api/backup',{ //33
             method:'POST',
@@ -253,9 +236,9 @@ const renderData = () => {
             body: JSON.stringify(bOrder)
         })
         .then(x => x.json())
-        .then(respuesta => {
-            console.log('se guardo en backup');
-        })
+        .then(respuesta => respuesta)
+            // console.log('se guardo en backup');
+        // })
     })
 })
 }
