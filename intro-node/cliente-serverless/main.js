@@ -53,6 +53,8 @@ const deleteMealAndOrder = (mealDeleted) => {
                 const template = r.map(t => {
                     mealOn_Order = t.meal_id
                     if (meal_deleated === mealOn_Order){
+                        console.log('meal deleated:', meal_deleated)
+                        console.log('meal on Order:', mealOn_Order)
                         flag = false
                         const id_order = t._id
                         fetch('http://localhost:3000/api/orders/' + id_order, { //fetch para eliminar meals
