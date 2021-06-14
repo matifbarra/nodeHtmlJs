@@ -1,6 +1,6 @@
 const express = require('express');
 const users = require('../models/users');
-const crypto = require('crypto'); //Esta libreria se usa para encriptar data
+const crypto = require('crypto'); 
 const router = express.Router();
 
 //GET de users
@@ -43,5 +43,6 @@ router.post('/register', (req,res) => {
         })
     })
   });
+
 
 module.exports = router

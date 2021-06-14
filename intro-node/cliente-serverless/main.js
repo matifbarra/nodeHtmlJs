@@ -388,8 +388,7 @@ const renderLogin = () =>{
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email, password })
-                // body: JSON.stringify({ email: email, password: password }) Esto es lo mismo que lo de 
-                //arriba pero como los nombres de la variables es el mismo se puede acortar  
+                 
             })
             .then(res => {
                 if (res.status == 404){
@@ -412,15 +411,15 @@ const renderLogin = () =>{
             })
         })
         .then(x => x.json())
-            // .then(user => console.log(user))
-            .then(fetchedUser => {
-                localStorage.setItem('user', JSON.stringify(fetchedUser) )
-                user = fetchedUser
-                renderOrders()            
-            })
+        .then(user => console.log(user))
+            // .then(fetchedUser => {
+            //     localStorage.setItem('user', JSON.stringify(fetchedUser) )
+            //     user = fetchedUser
+            //     renderOrders()            
+            // })
      }
-        const regButton = document.getElementById('regB')
-        regButton.addEventListener("click", renderRegister)
+        //const regButton = document.getElementById('regB')
+        //regButton.addEventListener("click", renderRegister)
 
     }
 
