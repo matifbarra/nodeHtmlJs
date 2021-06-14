@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>FrontEnd 2021</title>
+</head>
+<body>
+    <div id="app"></div>
+          
+    <script src="./main.js"></script>    
+</body>
+<template id="login-template">
+    <div class="form-main">
+        <p class="form-tittle">Login</p>
+        <form action="" class="login-form" id="login-form">
+            <div>
+                <p>Username</p>
+                <input type="text" placeholder="Enter email address" id="email">
+            </div>
+            <div>
+                <p>Password</p>
+                <input type="password" placeholder="Enter your contraseña" id="password">    
+            </div>
+            <div>
+                <button class="btn width_100">Enviar</button>     
+            </div>
+            
+            
+           
+        </form>
+    </div>
+</template>    
+
+
+<template id="orders-view">
+<main>
+    <section class="section_meals">
+        <ul id="meals-list" class="meals-list">
+           <p>Cargando...</p>  
+         
+        </ul>
+       
+
+        <form action="" id="orderForm">
+            <input type="hidden" id="hidden">
+            <button type="submit" id="GO_button" class="GO_button" disabled>Generar Orden</button> 
+        </form>
+
+        
+    </section>
+    
+    <section class="section_orders">
+        <ul id="orders-list" class="orders-list">
+            <p>Cargando...</p>                          
+        </ul>
+    </section>
+
+</main>
+
+</template>    
+
+</html>

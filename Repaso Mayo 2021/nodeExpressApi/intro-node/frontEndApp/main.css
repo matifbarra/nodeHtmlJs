@@ -1,0 +1,167 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+}
+
+/* .form-main{
+    max-width: 400px;
+    height: 400px;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: 150px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+ .form-main {
+    width: 100vw;
+    background-color: #fff;
+    height: 320px;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 20px;
+    padding-bottom: 40px;
+    padding-left: 30px;
+
+} 
+
+.form-main div:first-child {
+    margin-top: 20px;
+
+}
+
+.form-main div {
+    margin-bottom: 10px;
+}
+
+.form-tittle {
+    font-size: 2.4rem;
+    /* text-align: center; */
+}
+
+
+
+.login-form p {
+    margin-bottom: 5px;
+    font-size: 1.4rem;    
+}
+
+.login-form input {
+    width: 95%;
+    height: 40px;
+    padding-left: 5px;
+    border: 0px;
+    background-color: #dedede;
+}
+.login-form input::placeholder {
+    color: #999999;
+}
+
+
+.login-form .button-form {
+    margin-top: 10px;
+    width: 97%;
+    height: 40px;
+    border: 0px;
+    background-color: #FFBB00;
+}
+
+.btn {
+    border: none;
+    padding: 10px 15px;
+    background-color: #FFBB00;
+    margin-top: 20px;
+    height: 40px;
+
+}
+
+.width_100 {
+    width: calc(100% - 17px);
+}
+
+
+
+
+
+
+
+
+main {
+    width: 100vw;
+    background-color: #eee;
+    display: flex;
+
+}
+
+body {
+    background-color: #eee;
+    display: flex;
+}
+.section_meals {
+    width: 50%;
+    min-height: 145px;
+    margin: 0.5rem;
+    background-color: #FFBB00; 
+    padding: 2rem;
+    
+}
+
+.GO_button {
+    margin-top: 2rem;
+    width: 20rem;
+    height: 5rem;
+    border: 0;
+    background-color: #564D80;
+    color: #fff;
+    font-size: 1.4rem;
+
+}
+
+.GO_button:disabled {
+    background-color: grey;
+}
+
+
+.section_orders {
+    width: 50%;
+    margin: 0.5rem;
+    background-color:#D3FCD5; 
+    padding: 2rem;
+}
+
+.meals-list {
+    font-size: 1.6rem;
+    list-style: none;
+}
+
+.meals-list li {
+    cursor: pointer;
+}
+
+
+
+.selected {
+    background-color: #564D80;
+
+}
+
+.orders-list {
+    font-size: 1.6rem;
+    list-style: none;
+ 
+}
