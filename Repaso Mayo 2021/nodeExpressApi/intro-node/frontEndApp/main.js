@@ -19,22 +19,29 @@ const renderItem = (item) => {
         element.classList.add('selected')
         const hiddenButton = document.getElementById('hidden')
         console.log(hiddenButton)
-        hiddenButton.setAttribute('value',item._id)
-           
+        hiddenButton.setAttribute('value',item._id)  
     })
-
     return element
 }
 
 const renderOrder = (ordersData, mealsData) => {
+    console.log(ordersData)
     const meal = mealsData.find(x => x._id === ordersData.meal_id)
-    const elementOrder = stringToHTML(`<li data-id = ${ordersData._id}>${meal.name} - ${ordersData.user_id}</li>`)
+    const elementOrder = stringToHTML(`<li order_id = ${ordersData._id}>${meal.name} - ${ordersData.user_id}</li>`)
+    elementOrder.addEventListener('click', () =>{
+        const ordersList = document.getElementById('orders-list')
+        Array.from(ordersList.children).forEach(x => x.classList.remove('selected'))
+        elementOrder.classList.add('selected')
+        const hiddenButton2 = document.getElementById('hidden2')
+        console.log(hiddenButton2)
+        hiddenButton2.setAttribute('value',ordersData._id)
+    })
     return elementOrder
 }
     
 const initializingForm = () => {
-    const orderForm = document.getElementById('orderForm')
-    orderForm.onsubmit = (e) => {
+    const mealsForm = document.getElementById('mealsForm')
+    mealsForm.onsubmit = (e) => {
         e.preventDefault()
         const GO_Button = document.getElementById('GO_button')
         GO_Button.setAttribute('disabled', true) 
@@ -91,14 +98,51 @@ initializingMealsAndOrders = () => {
             fetch('http://localhost:3000/api/orders')
             .then(response => response.json())
             .then(ordersData =>{
+                const DO_Button = document.getElementById('DO_button')
                 const orderList = document.getElementById('orders-list')
                 const listOrders = ordersData.map(orderData => renderOrder(orderData, mealsData))
                 orderList.removeChild(orderList.firstElementChild)
                 listOrders.forEach(element => orderList.appendChild(element))
-                
+                DO_Button.removeAttribute('disabled')
             })
         
     })
+}
+
+
+const processingOrders = () => {
+    const ordersForm = document.getElementById('ordersForm')
+    console.log(ordersForm)
+    ordersForm.onsubmit = (e) => {
+        e.preventDefault()
+        //console.log('Here we go...')
+        const DO_Button = document.getElementById('DO_button')
+        DO_Button.setAttribute('disabled', true) 
+        const hiddenButton2 = document.getElementById('hidden2')
+        const orderIDValue = hiddenButton2.getAttribute('value')
+        console.log(orderIDValue)
+
+        const token = localStorage.getItem('token')
+
+        fetch('http://localhost:3000/api/orders/' + orderIDValue , {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: token,
+            },
+        })
+        .then(x => x.json())
+        .then(response => {
+             const renderedOrder = renderOrder(response,mealsState)
+             orderList = document.getElementById('orders-list')
+             orderList.appendChild(renderedOrder)
+             DO_Button.removeAttribute('disabled')
+             
+        })
+        renderApp()
+         
+    }
+
 }
 
 const renderLogin = () => {
@@ -157,7 +201,8 @@ const renderOrders = () => {
     const ordersView = document.getElementById('orders-view')
     document.getElementById('app').innerHTML = ordersView.innerHTML
     initializingForm()
-    initializingMealsAndOrders()     
+    initializingMealsAndOrders()
+    processingOrders()
 }
 
 const renderApp = () => {

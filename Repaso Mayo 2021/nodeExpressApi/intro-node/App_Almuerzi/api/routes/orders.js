@@ -21,14 +21,14 @@ router.get('/:id', (req,res) => {
 })
 
 router.post('/', isAuthenticated, hasRoles('user'), (req,res) => {
-    // const { _id } = req.user
-    // orders.create({ ...req.body, user_id: _id })
-    orders.create(req.body)
+    const { _id } = req.user
+    orders.create({ ...req.body, user_id: _id })
+    //orders.create(req.body)
     .then(x => res.status(201).send(x))
 })
 
 
-router.put('/:id', isAuthenticated, (req,res) => {
+router.put('/:id',  (req,res) => {
     orders.findByIdAndUpdate(req.params.id, req.body)
     .then(() => res.status(204))
     
